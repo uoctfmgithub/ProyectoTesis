@@ -1,0 +1,33 @@
+<h1 mat-dialog-title style="text-align: center;">Modificar Medicamento</h1>
+<div mat-dialog-content *ngFor="let Medicamento of data">
+  <mat-form-field style="margin-left: 3%;">
+    <input matInput placeholder="Nombre Medicamento" [(ngModel)]="Medicamento.NOMBRE" >
+    </mat-form-field>
+  <mat-form-field  style="margin-left: 3%;">
+    <input matInput placeholder="Descripcion" [(ngModel)]="Medicamento.DESCRIPCION">
+  </mat-form-field>
+  <mat-form-field  style="margin-left: 3%;">
+    <input matInput placeholder="Laboratorio" [(ngModel)]="Medicamento.LABORATORIO">
+  </mat-form-field>
+  <mat-form-field  style="margin-left: 3%;">
+    <input matInput placeholder="Marca" [(ngModel)]="Medicamento.MARCA">
+  </mat-form-field>
+  <mat-form-field style="margin-left: 3%;width: 40%;">
+    <mat-label>Categoria</mat-label>
+                <mat-select  [(value)]="Medicamento.ID_CATEGORIA">
+                  <mat-option [value]="1">Bebés y Mamás</mat-option>
+                  <mat-option [value]="2">Cosmética</mat-option>
+                  <mat-option [value]="3">Dietética  </mat-option>
+                  <mat-option [value]="4">Higiene</mat-option>
+                  <mat-option [value]="5">Salud</mat-option>
+                </mat-select>
+  </mat-form-field>
+
+</div>
+<div mat-dialog-actions>
+    <div style="margin: 0 auto;
+    display: inline-block;">
+  <button mat-raised-button color="primary" (click)="ActualizarMedicamento(data)" >Modificar</button>
+  <button mat-raised-button color="primary" (click)="onNoClick()" >Cancelar</button>
+</div>
+</div> 

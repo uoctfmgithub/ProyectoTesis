@@ -1,0 +1,266 @@
+use dbProdFarm;
+
+-------------------------CREACION-DE-TABLAS---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+create table TB_PAIS(
+ID_PAIS int AUTO_INCREMENT,
+NOMBRE varchar(50),
+FECHA_CREACION datetime,
+FECHA_DE_MODIFICACION datetime,
+PRIMARY KEY (ID_PAIS)
+);
+
+
+
+create table TB_FARMACIA(
+ID_FARMACIA int AUTO_INCREMENT,
+NOMBRE varchar(200),
+DIRECCION varchar(300),
+TELEFONO varchar(15),
+MOVIL varchar(15),
+LATITUD varchar(45),
+LONGITUD varchar(45),
+PROVINCIA varchar(100),
+CORREO varchar(100),
+ID_PAIS INT,
+FOREIGN KEY (ID_PAIS) REFERENCES TB_PAIS(ID_PAIS),
+CODIGO_POSTAL varchar(10), 
+FECHA_CREACION datetime,
+FECHA_DE_MODIFICACION datetime,
+PRIMARY KEY (ID_FARMACIA)
+);
+
+
+
+create table TB_CATEGORIA(
+ID_CATEGORIA int AUTO_INCREMENT,
+NOMBRE_CATEGORIA varchar(200),
+FECHA_CREACION datetime,
+FECHA_DE_MODIFICACION datetime,
+PRIMARY KEY (ID_CATEGORIA)
+);
+
+
+
+create table TB_SUB_CATEGORIA(
+ID_SUB_CATEGORIA int AUTO_INCREMENT,
+ID_CATEGORIA int,
+FOREIGN KEY (ID_CATEGORIA) REFERENCES TB_CATEGORIA(ID_CATEGORIA),
+NOMBRE varchar(200),
+PRIMARY KEY (ID_SUB_CATEGORIA)
+);
+
+
+
+create table TB_MEDICAMENTO(
+ID_MEDICAMENTO int AUTO_INCREMENT,
+NOMBRE varchar(200),
+DESCRIPCION varchar(500),
+LABORATORIO varchar(200),
+FECHA_CREACION datetime,
+FECHA_DE_MODIFICACION datetime,
+MARCA varchar(200),
+PRIMARY KEY (ID_MEDICAMENTO),
+ID_CATEGORIA int,
+FOREIGN KEY (ID_CATEGORIA) REFERENCES TB_CATEGORIA(ID_CATEGORIA)
+);
+
+
+
+
+create table TB_FARMACIA_MEDICAMENTO(
+ID_FARMACIA int,
+FOREIGN KEY (ID_FARMACIA) REFERENCES TB_FARMACIA(ID_FARMACIA),
+ID_MEDICAMENTO int,
+FOREIGN KEY (ID_MEDICAMENTO) REFERENCES TB_MEDICAMENTO(ID_MEDICAMENTO),
+CANTIDAD int,
+PRECIO decimal(18,2),
+MONEDA varchar(20)
+);
+
+
+-------------------------LLENADO-DE-LA-TABLA-TB_PAIS------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+insert into TB_PAIS values (default,"España",'2019-11-12','2019-11-12');
+insert into TB_PAIS values (default,"España",'2019-11-12',null);
+
+
+-------------------------LLENADO-DE-LA-TABLA-TB_CATEGORIA------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+insert into TB_CATEGORIA values (default,"Bebés y Mamás",'2019-11-12',null);
+insert into TB_CATEGORIA values (default,"Cosmética",'2019-11-12',null);
+insert into TB_CATEGORIA values (default,"Dietética",'2019-11-12',null);
+insert into TB_CATEGORIA values (default,"Higiene",'2019-11-12',null);
+insert into TB_CATEGORIA values (default,"Salud",'2019-11-12',null);
+
+
+-------------------------LLENADO-DE-LA-TABLA-TB_SUB_CATEGORIA------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+insert into TB_SUB_CATEGORIA values (default,1,"Accesarios del Bebé");
+insert into TB_SUB_CATEGORIA values (default,1,"Alementación del Bebé");
+
+insert into TB_SUB_CATEGORIA values (default,2,"Cosmética Corporal");
+insert into TB_SUB_CATEGORIA values (default,2,"Cosmética Facial");
+
+insert into TB_SUB_CATEGORIA values (default,3,"Adelgazar");
+insert into TB_SUB_CATEGORIA values (default,3,"Nutrición");
+
+insert into TB_SUB_CATEGORIA values (default,4,"Buscal");
+insert into TB_SUB_CATEGORIA values (default,4,"Cabello");
+
+-------------------------LLENADO-DE-LA-TABLA-TB_FARMACIA------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-------------------------LLENADO-DE-LA-TABLA-TB_MEDICAMENTO------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-------------------------LLENADO-DE-LA-TABLA-TB_FARMACIA_MEDICAMENTO------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+insert into TB_FARMACIA_MEDICAMENTO values (1,1,100,2.10,"Euro");
+insert into TB_FARMACIA_MEDICAMENTO values (2,3,50,3.10,"Euro");
+insert into TB_FARMACIA_MEDICAMENTO values (5,4,600,4.10,"Euro");
+insert into TB_FARMACIA_MEDICAMENTO values (6,5,70,5.10,"Euro");
+
+-------------------------PROCEDIMIENTO-ALMACENADO-PARA-CRUD-DE-MEDICAMENTO---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+create procedure USP_Medicamento(in accion int,in id int,in NomMedicamento varchar(200),in DesMedicamento varchar(500),in LabMedicamento varchar(200),in fe_modificacion datetime,in MarcMedicamento varchar(200),in id_Cate int )
+begin
+if accion = 1 then
+select * from TB_MEDICAMENTO;
+elseif accion = 2 then
+INSERT INTO TB_MEDICAMENTO (ID_MEDICAMENTO,NOMBRE,DESCRIPCION,LABORATORIO,FECHA_CREACION,FECHA_DE_MODIFICACION,MARCA,ID_CATEGORIA) 
+VALUES (default,NomMedicamento,DesMedicamento,LabMedicamento,now(),fe_modificacion,MarcMedicamento,id_Cate);
+elseif accion = 3 then
+update TB_MEDICAMENTO set NOMBRE=NomMedicamento,DESCRIPCION=DesMedicamento,LABORATORIO=LabMedicamento,FECHA_DE_MODIFICACION=fe_modificacion,MARCA=MarcMedicamento,ID_CATEGORIA=id_Cate
+where ID_MEDICAMENTO=id;
+elseif accion = 4 then
+delete from TB_MEDICAMENTO where ID_MEDICAMENTO=id;
+elseif accion = 5 then
+select * from TB_MEDICAMENTO where ID_MEDICAMENTO=id;
+end if;
+end;
+
+------------------------------PROCEDIMIENTO-ALMACENADO-PARA-CRUD-DE-FARMACIA--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+create procedure USP_Farmacia(in accion int,in id int,in NomFarmacia varchar(200),in direFarmacia varchar(300),in telFarmacia varchar(15),in movFarmacia varchar(15),in latFarmacia varchar(45),in longFarmacia varchar(45),in proviFarmacia varchar(100),in correFarmacia varchar(100),in pais int,in cod_postal varchar(10),in fe_modificacion datetime )
+begin
+if accion = 1 then
+select * from TB_FARMACIA;
+elseif accion = 2 then
+INSERT INTO TB_FARMACIA (ID_FARMACIA,NOMBRE,DIRECCION,TELEFONO,MOVIL,LATITUD,LONGITUD,PROVINCIA,CORREO,ID_PAIS,CODIGO_POSTAL,FECHA_CREACION,FECHA_DE_MODIFICACION) 
+VALUES (default,NomFarmacia,direFarmacia,telFarmacia,movFarmacia,latFarmacia,longFarmacia,proviFarmacia,correFarmacia,pais,cod_postal,now(),fe_modificacion);
+elseif accion = 3 then
+update TB_FARMACIA set NOMBRE=NomFarmacia,DIRECCION=direFarmacia,TELEFONO=telFarmacia,MOVIL=movFarmacia,LATITUD=latFarmacia,LONGITUD=longFarmacia,PROVINCIA=proviFarmacia,CORREO=correFarmacia,ID_PAIS=pais,CODIGO_POSTAL=cod_postal,FECHA_DE_MODIFICACION=fe_modificacion
+where ID_FARMACIA=id;
+elseif accion = 4 then
+delete from TB_FARMACIA where ID_FARMACIA=id;
+elseif accion = 5 then
+select * from TB_FARMACIA where ID_FARMACIA=id;
+end if;
+end;
+
+
+------------------------------PROCEDIMIENTO-ALMACENADO-PARA-CRUD-DE-CATEGORIA--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+create procedure USP_Categoria(in accion int,in id int,in NomCategoria varchar(200),in fe_modificacion datetime )
+begin
+if accion = 1 then
+select * from TB_CATEGORIA;
+elseif accion = 2 then
+INSERT INTO TB_CATEGORIA (ID_CATEGORIA,NOMBRE_CATEGORIA,FECHA_CREACION,FECHA_DE_MODIFICACION) 
+VALUES (default,NomCategoria,now(),fe_modificacion);
+elseif accion = 3 then
+update TB_CATEGORIA set NOMBRE_CATEGORIA=NomCategoria,FECHA_DE_MODIFICACION=fe_modificacion
+where ID_CATEGORIA=id;
+elseif accion = 4 then
+delete from TB_CATEGORIA where ID_CATEGORIA=id;
+elseif accion = 5 then
+select * from TB_CATEGORIA where ID_CATEGORIA=id;
+end if;
+end;
+
+       
+--------CONSULTAR-PROCEDIMIENTOS-MEDICAMENTOS--------------------------------------------------------------------------------------------------------------------------------
+
+call USP_Medicamento(1,null,"","","",null,"",null);
+call USP_Medicamento(2,0,"Ibuprofeno","ibuprofeno de 200 mg","soltecn peru",null,"ibu",1);
+call USP_Medicamento(3,5,"Ibuprofeno 1000","ibuprofeno de 400 mg","soltecn peru","2019-12-11","ibu",1);
+call USP_Medicamento(4,6,"","","",null,"",null);
+call USP_Medicamento(5,10,"","","",null,"",null);
+
+
+--------CONSULTAR-PROCEDIMIENTOS-FARMACIAS--------------------------------------------------------------------------------------------------------------------------------
+
+call USP_Farmacia(1,null,"","","","","","","","",null,"",null);
+call USP_Farmacia(2,0,"Farmacia x1000","av barcelona cdr 4","145896589","254895","latitud","longitud","Lima","farmaprueba@gmail.com",1,"1254",null);
+call USP_Farmacia(3,2,"Farmacia","av barcelona cdr 4","145896589","254895","latitud","longitud","Lima","farmaprueba@gmail.com",1,"1254",null);
+call USP_Farmacia(4,7,"","","","","","","","",null,"",null);
+call USP_Farmacia(5,3,"","","","","","","","",null,"",null);
+
+
+--------CONSULTAR-PROCEDIMIENTOS-CATEGORIA--------------------------------------------------------------------------------------------------------------------------------
+
+call USP_Categoria(1,null,"",null);
+call USP_Categoria(2,0,"Prueba x11",'2019-12-11');
+call USP_Categoria(3,6,"Prueba x10",null);
+call USP_Categoria(4,6,"",null);
+call USP_Categoria(5,6,"",null);
+
+
+select * from TB_PAIS
+select * from TB_FARMACIA
+select * from TB_CATEGORIA
+select * from TB_SUB_CATEGORIA
+select * from TB_MEDICAMENTO
+select * from TB_FARMACIA_MEDICAMENTO
+
+
+
+SELECT DISTINCT
+   t1.NOMBRE as NOMBRE_PRODUCTO,
+	 t3.NOMBRE_CATEGORIA,
+	 t5.NOMBRE as NOMBRE_FARMACIA,
+	 t5.DIRECCION,
+	 t5.LATITUD,
+	 t5.LONGITUD,
+	 t2.CANTIDAD,
+	 t2.PRECIO
+FROM
+    TB_MEDICAMENTO t1
+INNER JOIN TB_FARMACIA_MEDICAMENTO t2 
+    ON t1.ID_MEDICAMENTO = t2.ID_MEDICAMENTO		
+INNER JOIN TB_CATEGORIA t3
+    ON t1.ID_CATEGORIA = t3.ID_CATEGORIA
+INNER JOIN TB_SUB_CATEGORIA t4
+    ON t4.ID_CATEGORIA = t3.ID_CATEGORIA
+INNER JOIN TB_FARMACIA t5
+    ON t5.ID_FARMACIA = t2.ID_FARMACIA
+
+
+create procedure USP_Buscar_Producto(in texto varchar(100))
+begin
+   SELECT DISTINCT
+   t1.NOMBRE as NOMBRE_PRODUCTO,
+	 t3.NOMBRE_CATEGORIA,
+	 t5.NOMBRE as NOMBRE_FARMACIA,
+	 t5.DIRECCION,
+	 t5.LATITUD,
+	 t5.LONGITUD,
+	 t2.CANTIDAD,
+	 t2.PRECIO
+FROM
+    TB_MEDICAMENTO t1
+INNER JOIN TB_FARMACIA_MEDICAMENTO t2 
+    ON t1.ID_MEDICAMENTO = t2.ID_MEDICAMENTO		
+INNER JOIN TB_CATEGORIA t3
+    ON t1.ID_CATEGORIA = t3.ID_CATEGORIA
+INNER JOIN TB_SUB_CATEGORIA t4
+    ON t4.ID_CATEGORIA = t3.ID_CATEGORIA
+INNER JOIN TB_FARMACIA t5
+    ON t5.ID_FARMACIA = t2.ID_FARMACIA
+
+where t1.NOMBRE like CONCAT('%', texto , '%');
+				
+end;
+
+
+
+call USP_Buscar_Producto("");

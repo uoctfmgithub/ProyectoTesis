@@ -1,0 +1,208 @@
+create database dbProdFarm;
+
+use dbProdFarm;
+
+-----CREANDO-TABLAS-PARA-PRODUCTOS----------------------------------------------------------------------------------------------------------------------------
+
+create table T_Categoria_Producto(
+ co_Categoria varchar(6) not null primary key,
+ no_Categoria varchar(150)
+);
+
+create table T_Sub_Categoria_Producto(
+ co_SubCategoria varchar(6) not null primary key,
+ no_Subcategoria varchar(150),
+ co_Categoria varchar(6),
+ FOREIGN KEY (co_Categoria) REFERENCES T_Categoria_Producto(co_Categoria)
+);
+
+create table T_Unidad_Medida(
+ co_Unidad varchar(4) not null primary key,
+ no_Unidad varchar(50) 
+);
+
+create table T_Productos(
+ id int AUTO_INCREMENT,  
+ co_Producto varchar(30) not null,
+ no_Producto varchar(350),
+ no_Principio_Activo varchar(350),
+ co_Categoria varchar(6),    
+ co_SubCategoria varchar(6),                                              
+ co_Unidad varchar(4),
+ qt_Precio numeric(18,4),
+ PRIMARY KEY (id),
+ unique key(co_Producto),
+ FOREIGN KEY (co_Categoria) REFERENCES T_Categoria_Producto(co_Categoria),
+ FOREIGN KEY (co_Unidad) REFERENCES T_Unidad_Medida(co_Unidad),
+ FOREIGN KEY (co_SubCategoria) REFERENCES T_Sub_Categoria_Producto(co_SubCategoria)                                         
+);
+
+--------CREANDO-TABLA-FARMACIA-------------------------------------------------------------------------------------------------------------------------------
+
+create table T_Farmacias(
+ id int AUTO_INCREMENT, 
+ co_Farmacia varchar(11) not null,
+ co_ruc varchar(11) not null,
+ no_Farmacia varchar(250),
+ no_Contacto varchar(250),
+ no_Correo varchar(250),
+ nu_Telefono int,
+ nu_celular int,
+ no_Direccion varchar(350),
+ PRIMARY KEY (id),
+ unique key(co_Farmacia),
+ unique key(co_ruc)
+);
+
+--------CREANDO-TABLA-PRODFARMACIA-------------------------------------------------------------------------------------------------------------------------------
+
+create table T_ProdFarmacia(
+ id int AUTO_INCREMENT,
+ co_Farmacia varchar(11),
+ co_Producto varchar(30),
+ PRIMARY KEY (id),
+ FOREIGN KEY (co_Farmacia) REFERENCES T_Farmacias(co_Farmacia),
+ FOREIGN KEY (co_Producto) REFERENCES T_Productos(co_Producto)
+);
+
+--------SELECT DE LAS TABLAS--------------------------------------------------------------------------------------------------------------------------------
+
+select * from T_Categoria_Producto
+select * from T_Sub_Categoria_Producto
+select * from T_Unidad_Medida
+select * from T_Productos
+select * from T_Farmacias
+
+------------------LLENADO DE LA TABLA CATEGORIA--------------------------------------------------------------------------------------------------------------
+
+insert into T_Categoria_Producto values('C001','BELLEZA');
+insert into T_Categoria_Producto values('C002','BIENESTAR SEXUAL');
+insert into T_Categoria_Producto values('C003','CUIDADO PERSONAL');
+insert into T_Categoria_Producto values('C004','FARMACIA Y SALUD');
+insert into T_Categoria_Producto values('C005','MAMÁ Y BEBÉ');
+insert into T_Categoria_Producto values('C006','VITAMINAS / SUPLEMENTOS');
+insert into T_Categoria_Producto values('C007','ELECTROBELLEZA');
+
+------------------LLENADO DE LA TABLA UNIDAD DE MEDIDA-------------------------------------------------------------------------------------------------------
+
+insert into T_Unidad_Medida values('UND','UNIDAD');
+insert into T_Unidad_Medida values('CJA','CAJA');
+insert into T_Unidad_Medida values('KT','KIT');
+
+------------------LLENADO DE LA TABLA SUB-CATEGORIA-----------------------------------------------------------------------------------------------------------
+
+insert into T_Sub_Categoria_Producto values('SBE001','COSMÉTICOS','C001');
+insert into T_Sub_Categoria_Producto values('SBE002','CUIDADO DE MANOS Y PIES','C001');
+insert into T_Sub_Categoria_Producto values('SBE003','BAÑO Y CUERPO','C001');
+
+
+insert into T_Sub_Categoria_Producto values('SBS001','ANTICONCEPTIVOS - PRESERVATIVOS','C002');
+insert into T_Sub_Categoria_Producto values('SBS002','LUBRICANTES Y HUMECTANTES','C002');
+
+
+insert into T_Sub_Categoria_Producto values('SCP001','BAÑO Y CUERPO','C003');
+insert into T_Sub_Categoria_Producto values('SCP002','CUIDADO ORAL','C003');
+insert into T_Sub_Categoria_Producto values('SCP003','PRIMEROS AUXILIOS','C003');
+insert into T_Sub_Categoria_Producto values('SCP004','CUIDADO DE LOS PIES','C003');
+
+
+insert into T_Sub_Categoria_Producto values('SFS001','ALIVIO DE HEMORROIDES','C004');
+insert into T_Sub_Categoria_Producto values('SFS002','ALIVIO DEL DOLOR','C004');
+insert into T_Sub_Categoria_Producto values('SFS003','CUIDADO OFTALMOLÓGICO','C004');
+insert into T_Sub_Categoria_Producto values('SFS004','GRIPE, RESFRIADO Y TOS','C004');
+insert into T_Sub_Categoria_Producto values('SFS005','PRIMEROS AUXILIOS','C004');
+insert into T_Sub_Categoria_Producto values('SFS006','PRUEBAS Y MONITOREO','C004');
+insert into T_Sub_Categoria_Producto values('SFS007','SALUD DIGESTIVA','C004');
+insert into T_Sub_Categoria_Producto values('SFS008','CUIDADO FEMENINO','C004');
+
+
+insert into T_Sub_Categoria_Producto values('SMB001','ACCESORIOS CUIDADO INFANTIL','C005');
+insert into T_Sub_Categoria_Producto values('SMB002','CUIDADO PIEL-MAMÁ Y BEBÉ','C005');
+insert into T_Sub_Categoria_Producto values('SMB003','CUIDADO INFANTIL','C005');
+insert into T_Sub_Categoria_Producto values('SMB004','EMBARAZO Y FERTILIDAD','C005');
+insert into T_Sub_Categoria_Producto values('SMB005','FÓRMULA Y ALIMENTO PARA BEBÉ','C005');
+insert into T_Sub_Categoria_Producto values('SMB006','PAÑALES Y PAÑITOS HUMEDOS','C005');
+
+
+insert into T_Sub_Categoria_Producto values('SVS001','CALCIO Y MINERALES','C006');
+insert into T_Sub_Categoria_Producto values('SVS002','EMBARAZO Y FERTILIDAD','C006');
+insert into T_Sub_Categoria_Producto values('SVS003','MULTIVITAMÍNICOS','C006');
+insert into T_Sub_Categoria_Producto values('SVS004','SUPLEMENTOS PARA ADULTOS','C006');
+
+
+insert into T_Sub_Categoria_Producto values('SEB001','ALISADORES Y RISADORES','C007');
+insert into T_Sub_Categoria_Producto values('SEB002','SECADORES DE CABELLO','C007');
+
+------------------LLENADO DE LA TABLA PRODUCTOS------------------------------------------------------------------------------------------------------------------
+
+
+
+
+------------------LLENADO DE LA TABLA FARMACIAS--------------------------------------------------------------------------------------------------------------------
+
+insert into T_Farmacias values(default,'FR00001','20520685414','GRUPO BIOMEDICA S.A.C.','Jara Rodriguez Juan Carlos','grupobiomedica@gmail.com','2930389','946251485','Sector 2 Barrio 3 Mza. S Lote. 27 Pachacamac (Espalda Parque Zonal Huascar) Villa el Salvador Lima, Perú');
+insert into T_Farmacias values(default,'FR00002','20600694562','BOTICAS SOLFARMA S.A.C','Tarazona Moya Evaluz Mabel','boticasolfarma@gmail.com','2214513','952146325','Av. San Martin - Jr. las Viol Mza. K1 Lote. 1 Los Pinos (Frente al Mercado los Pinos) San Juan de Lurigancho Lima, Perú');
+insert into T_Farmacias values(default,'FR00003','20331066703','INRETAIL PHARMA S.A.','Dasso Montero Rafael','inrepharma@gmail.com','3159000','948214652','Av. Defensores del Morro Nro. 1277 Chorrillos Lima, Perú');
+insert into T_Farmacias values(default,'FR00004','20512002090','MIFARMA S.A.C.','Yañez Olarte Edmundo','mifarma@gmail.com','2130778','956214523','Cal. Victor Alzamora Nro. 147 Santa Catalina La Victoria Lima, Perú');
+insert into T_Farmacias values(default,'FR00005','20384891943','BOTICAS Y SALUD S.A.C.','Johnson Alfaro Koening Miguel','boticasysalud@gmail.com','3444343','951234859','Jr. Alfred Rosenblat Nro. 145 Huertos de San Antonio (1-2-3-4 y 5to Piso) Santiago de Surco Lima, Perú');
+insert into T_Farmacias values(default,'FR00006','20100025168','FARMACIA UNIVERSAL S.A.C.','Guevara Pasache de Lavalle Dolores Ines','farmauniversal','4171800','962314526','Av. de la Emancipación Nro. 799 (Esquina con Angaraes 535) Lima Lima, Perú');
+insert into T_Farmacias values(default,'FR00007','20259544247','BOTICAS HOMEOPATICAS DEL PERU S.A.C.','Cespedes Caro Maria Angela','boticahomeopaticas@gmail.com','2430017','952138479','Av. la Paz Nro. 356 Int. 401 Cercado de Miraflores (Cuarto Piso) Miraflores Lima, Perú');
+insert into T_Farmacias values(default,'FR00008','20346802996','FARMACIAS HOLLYWOOD S.A.C','Aragaki Uechi Juan Alberto','farmahollywood@gmail.com','6143330','964785142','Av. Venezuela Nro. 1100 Chacra Colorada Breña Lima, Perú');
+insert into T_Farmacias values(default,'FR00009','20418140551','Fasa-Boticas Arcangel-Mifarma','Alfaro Garrath Luis Felipe','boticaarcangel@gmail.com','4116300','985147689','Cal. Victor Alzamora Nro. 147 Sta.Catalina La Victoria Lima, Perú');
+
+
+
+
+
+-------------------------PROCEDIMIENTO ALMACENADO PARA CRUD DE PRODUCTO-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+create procedure USP_Producto (in accion int,in idc int,in Codproducto varchar(30),in NomProducto varchar(350),in Principio_Activo varchar(350),in Categoria varchar(6),in SubCategoria varchar(6),in Unidad varchar(4),in Precio numeric(18,4) )
+begin
+if accion = 1 then
+select * from T_Productos;
+elseif accion = 2 then
+INSERT INTO T_Productos (id,co_Producto, no_Producto,no_Principio_Activo,co_Categoria,co_SubCategoria,co_Unidad,qt_Precio) 
+VALUES (default,Codproducto,NomProducto, Principio_Activo,Categoria,SubCategoria,Unidad,Precio);
+elseif accion = 3 then
+update T_Productos set co_Producto=Codproducto,no_Producto=NomProducto,no_Principio_Activo=Principio_Activo,co_Categoria=Categoria,co_SubCategoria=SubCategoria,co_Unidad=Unidad,qt_Precio=Precio
+where id=idc;
+elseif accion = 4 then
+delete from T_Productos where id=idc;
+elseif accion = 5 then
+select * from T_Productos where id=idc;
+end if;
+end;
+
+-------------------------PROCEDIMIENTO ALMACENADO PARA CRUD DE FARMACIA-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+create procedure USP_Farmacia (in accion int,in idf int,in Codfarmacia varchar(11),in ruc varchar(11),in NomFarmacia varchar(250),in contacto varchar(250),in correo varchar(250),in telefono int,in celular int,in direccion varchar(350) )
+begin
+if accion = 1 then
+select * from T_Farmacias;
+elseif accion = 2 then
+INSERT INTO T_Farmacias (id,co_Farmacia,co_ruc, no_Farmacia,no_Contacto,no_Correo,nu_Telefono,nu_celular,no_Direccion) 
+VALUES (default,Codfarmacia,ruc, NomFarmacia,contacto,correo,telefono,celular,direccion);
+elseif accion = 3 then
+update T_Farmacias set co_Farmacia=Codfarmacia,co_ruc=ruc,no_Farmacia=NomFarmacia,no_Contacto=contacto,no_Correo=correo,nu_Telefono=telefono,nu_celular=celular,no_Direccion=direccion
+where id=idf;
+elseif accion = 4 then
+delete from T_Farmacias where id=idf;
+elseif accion = 5 then
+select * from T_Farmacias where id=idf;
+end if;
+end;
+
+--------CONSULTAR PROCEDIMIENTOS PRODUCTOS--------------------------------------------------------------------------------------------------------------------------------
+
+call USP_Producto(1,null,"","","","","","",null);
+call USP_Producto(2,0,"P006","Prod 6","Paracetamol","C003","SCP001","UND",25);
+call USP_Producto('3','6','P006','Prod 4','sssss','C003','SC001','UND',20.5);
+call USP_Producto('4','5','','','','','','',null);
+call USP_Producto('5','4','','','','','','',null);
+
+--------CONSULTAR PROCEDIMIENTOS FARMACIAS--------------------------------------------------------------------------------------------------------------------------------
+call USP_Farmacia(1,null,"","","","","",null,null,"");
+call USP_Farmacia(2,0,"FR00010","20145236851","FARMACIA PRUEBA","PEDRITO","ASDAS@ASDASD",231231,321651564,"ASDASDASDASDASDASD");
+call USP_Farmacia('3',10,"FR00010","20145236853","FARMACIA PRUEBA","PEDRITO","ASDAS@ASDASD",231231,321651564,"ASDASDASDASDASDASD");
+call USP_Farmacia('4','5',"","","","","",null,null,"");
+call USP_Farmacia('5','4',"","","","","",null,null,"");

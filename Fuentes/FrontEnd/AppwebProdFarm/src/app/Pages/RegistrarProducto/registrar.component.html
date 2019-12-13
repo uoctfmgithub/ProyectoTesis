@@ -1,0 +1,57 @@
+      <div style="padding: 2%;">
+      <h1 style="text-align: center;">Registros de Medicamentos</h1>
+        <mat-form-field>
+              <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar">
+        </mat-form-field>
+        <button mat-icon-button (click)="NuevoMedicamento()"><mat-icon>add_box</mat-icon></button>   
+             
+          <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+            
+            <ng-container matColumnDef="ID_MEDICAMENTO">
+              <th mat-header-cell *matHeaderCellDef> No. </th>
+              <td mat-cell *matCellDef="let element"> {{element.ID_MEDICAMENTO}} </td>
+            </ng-container>
+            
+            <ng-container matColumnDef="NOMBRE">
+              <th mat-header-cell *matHeaderCellDef> Nombre </th>
+              <td mat-cell *matCellDef="let element"> {{element.NOMBRE}} </td>
+            </ng-container>
+          
+            <ng-container matColumnDef="DESCRIPCION">
+              <th mat-header-cell *matHeaderCellDef> Descripcion </th>
+              <td mat-cell *matCellDef="let element"> {{element.DESCRIPCION}} </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="LABORATORIO">
+                <th mat-header-cell *matHeaderCellDef> Laboratorio </th>
+                <td mat-cell *matCellDef="let element"> {{element.LABORATORIO}} </td>
+              </ng-container>
+          
+            <ng-container matColumnDef="MARCA">
+                <th mat-header-cell *matHeaderCellDef> Marca </th>
+                <td mat-cell *matCellDef="let element"> {{element.MARCA}} </td>
+              </ng-container>
+
+            <ng-container matColumnDef="ID_CATEGORIA">
+              <th mat-header-cell *matHeaderCellDef> Categoria </th>
+              <td mat-cell *matCellDef="let element"> {{element.ID_CATEGORIA}} </td>
+            </ng-container>
+                              
+             
+             <ng-container matColumnDef="modificar">
+              <th mat-header-cell *matHeaderCellDef> Modificar </th>
+              <td mat-cell *matCellDef="let element">             
+                  <button mat-icon-button (click)="DataCompararById(element.ID_MEDICAMENTO)"><mat-icon>edit</mat-icon></button>             
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="eliminar">
+                <th mat-header-cell *matHeaderCellDef> Eliminar </th>
+                <td mat-cell *matCellDef="let element">             
+                    <button mat-icon-button (click)="DataCompararDeleteById(element.ID_MEDICAMENTO)"><mat-icon>delete</mat-icon></button>             
+                </td>
+              </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+        </div>

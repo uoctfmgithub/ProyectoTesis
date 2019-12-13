@@ -1,0 +1,36 @@
+/*estilo para el input*/
+.example-form {
+  min-width: 150px;
+  max-width: 300px;
+  width: 50%;
+}
+
+.example-full-width {
+  width: 35%;
+}
+.divCenter{
+  text-align: center;
+}
+/* fin para el estilo input */
+
+
+/* estilo para los card */
+ .cardList {
+   display: flex;
+   flex-direction: row;
+   flex-wrap: wrap;
+   justify-content: flex-start;
+   height: 80%;
+ }
+
+ .cardList > * {
+   box-sizing: border-box;
+ }
+ .cardList > *:not(:last-child) {
+   margin-right: 32px;
+ }
+
+ .cardListItem {
+   flex: 0 1 calc(33.3% - 32px);
+   margin-top: 1%;
+ }
