@@ -1,3 +1,5 @@
+Create database dbProdFarm;
+
 use dbProdFarm;
 
 -------------------------CREACION-DE-TABLAS---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -81,29 +83,29 @@ MONEDA varchar(20)
 
 -------------------------LLENADO-DE-LA-TABLA-TB_PAIS------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-insert into TB_PAIS values (default,"EspaÒa",'2019-11-12','2019-11-12');
-insert into TB_PAIS values (default,"EspaÒa",'2019-11-12',null);
+insert into TB_PAIS values (default,"Espa√±a",'2019-11-12','2019-11-12');
+insert into TB_PAIS values (default,"Espa√±a",'2019-11-12',null);
 
 
 -------------------------LLENADO-DE-LA-TABLA-TB_CATEGORIA------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-insert into TB_CATEGORIA values (default,"BebÈs y Mam·s",'2019-11-12',null);
-insert into TB_CATEGORIA values (default,"CosmÈtica",'2019-11-12',null);
-insert into TB_CATEGORIA values (default,"DietÈtica",'2019-11-12',null);
+insert into TB_CATEGORIA values (default,"Beb√©s y Mam√°s",'2019-11-12',null);
+insert into TB_CATEGORIA values (default,"Cosm√©tica",'2019-11-12',null);
+insert into TB_CATEGORIA values (default,"Diet√©tica",'2019-11-12',null);
 insert into TB_CATEGORIA values (default,"Higiene",'2019-11-12',null);
 insert into TB_CATEGORIA values (default,"Salud",'2019-11-12',null);
 
 
 -------------------------LLENADO-DE-LA-TABLA-TB_SUB_CATEGORIA------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-insert into TB_SUB_CATEGORIA values (default,1,"Accesarios del BebÈ");
-insert into TB_SUB_CATEGORIA values (default,1,"AlementaciÛn del BebÈ");
+insert into TB_SUB_CATEGORIA values (default,1,"Accesarios del Beb√©");
+insert into TB_SUB_CATEGORIA values (default,1,"Alementaci√≥n del Beb√©");
 
-insert into TB_SUB_CATEGORIA values (default,2,"CosmÈtica Corporal");
-insert into TB_SUB_CATEGORIA values (default,2,"CosmÈtica Facial");
+insert into TB_SUB_CATEGORIA values (default,2,"Cosm√©tica Corporal");
+insert into TB_SUB_CATEGORIA values (default,2,"Cosm√©tica Facial");
 
 insert into TB_SUB_CATEGORIA values (default,3,"Adelgazar");
-insert into TB_SUB_CATEGORIA values (default,3,"NutriciÛn");
+insert into TB_SUB_CATEGORIA values (default,3,"Nutrici√≥n");
 
 insert into TB_SUB_CATEGORIA values (default,4,"Buscal");
 insert into TB_SUB_CATEGORIA values (default,4,"Cabello");
@@ -121,25 +123,34 @@ insert into TB_FARMACIA_MEDICAMENTO values (6,5,70,5.10,"Euro");
 
 -------------------------PROCEDIMIENTO-ALMACENADO-PARA-CRUD-DE-MEDICAMENTO---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-create procedure USP_Medicamento(in accion int,in id int,in NomMedicamento varchar(200),in DesMedicamento varchar(500),in LabMedicamento varchar(200),in fe_modificacion datetime,in MarcMedicamento varchar(200),in id_Cate int )
+
+DELIMITER $$
+create procedure USP_Medicamento(in accion int,in id int,in NomMedicamento varchar(200),
+								in DesMedicamento varchar(500),in LabMedicamento varchar(200),
+                                in fe_modificacion datetime,in MarcMedicamento varchar(200),
+                                in id_Cate int )
 begin
-if accion = 1 then
-select * from TB_MEDICAMENTO;
-elseif accion = 2 then
-INSERT INTO TB_MEDICAMENTO (ID_MEDICAMENTO,NOMBRE,DESCRIPCION,LABORATORIO,FECHA_CREACION,FECHA_DE_MODIFICACION,MARCA,ID_CATEGORIA) 
-VALUES (default,NomMedicamento,DesMedicamento,LabMedicamento,now(),fe_modificacion,MarcMedicamento,id_Cate);
-elseif accion = 3 then
-update TB_MEDICAMENTO set NOMBRE=NomMedicamento,DESCRIPCION=DesMedicamento,LABORATORIO=LabMedicamento,FECHA_DE_MODIFICACION=fe_modificacion,MARCA=MarcMedicamento,ID_CATEGORIA=id_Cate
-where ID_MEDICAMENTO=id;
-elseif accion = 4 then
-delete from TB_MEDICAMENTO where ID_MEDICAMENTO=id;
-elseif accion = 5 then
-select * from TB_MEDICAMENTO where ID_MEDICAMENTO=id;
-end if;
-end;
-
+	if accion = 1 then
+	select * from TB_MEDICAMENTO;
+	end if;
+	if accion = 2 then
+		INSERT INTO TB_MEDICAMENTO (ID_MEDICAMENTO,NOMBRE,DESCRIPCION,LABORATORIO,FECHA_CREACION,FECHA_DE_MODIFICACION,MARCA,ID_CATEGORIA)
+		VALUES (default,NomMedicamento,DesMedicamento,LabMedicamento,now(),fe_modificacion,MarcMedicamento,id_Cate);
+	end if;
+	if accion = 3 then
+		update TB_MEDICAMENTO set NOMBRE=NomMedicamento,DESCRIPCION=DesMedicamento,LABORATORIO=LabMedicamento,FECHA_DE_MODIFICACION=fe_modificacion,MARCA=MarcMedicamento,ID_CATEGORIA=id_Cate
+		where ID_MEDICAMENTO=id;
+	end if;
+	if accion = 4 then
+		delete from TB_MEDICAMENTO where ID_MEDICAMENTO=id;
+	end if;
+	if accion = 5 then
+		select * from TB_MEDICAMENTO where ID_MEDICAMENTO=id;
+	end if;
+end$$
+DELIMITER ;
 ------------------------------PROCEDIMIENTO-ALMACENADO-PARA-CRUD-DE-FARMACIA--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
+DELIMITER $$
 create procedure USP_Farmacia(in accion int,in id int,in NomFarmacia varchar(200),in direFarmacia varchar(300),in telFarmacia varchar(15),in movFarmacia varchar(15),in latFarmacia varchar(45),in longFarmacia varchar(45),in proviFarmacia varchar(100),in correFarmacia varchar(100),in pais int,in cod_postal varchar(10),in fe_modificacion datetime )
 begin
 if accion = 1 then
@@ -155,11 +166,11 @@ delete from TB_FARMACIA where ID_FARMACIA=id;
 elseif accion = 5 then
 select * from TB_FARMACIA where ID_FARMACIA=id;
 end if;
-end;
-
+end$$
+DELIMITER ;
 
 ------------------------------PROCEDIMIENTO-ALMACENADO-PARA-CRUD-DE-CATEGORIA--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
+DELIMITER $$
 create procedure USP_Categoria(in accion int,in id int,in NomCategoria varchar(200),in fe_modificacion datetime )
 begin
 if accion = 1 then
@@ -175,7 +186,9 @@ delete from TB_CATEGORIA where ID_CATEGORIA=id;
 elseif accion = 5 then
 select * from TB_CATEGORIA where ID_CATEGORIA=id;
 end if;
-end;
+end$$
+DELIMITER ;
+
 
        
 --------CONSULTAR-PROCEDIMIENTOS-MEDICAMENTOS--------------------------------------------------------------------------------------------------------------------------------
@@ -211,56 +224,3 @@ select * from TB_CATEGORIA
 select * from TB_SUB_CATEGORIA
 select * from TB_MEDICAMENTO
 select * from TB_FARMACIA_MEDICAMENTO
-
-
-
-SELECT DISTINCT
-   t1.NOMBRE as NOMBRE_PRODUCTO,
-	 t3.NOMBRE_CATEGORIA,
-	 t5.NOMBRE as NOMBRE_FARMACIA,
-	 t5.DIRECCION,
-	 t5.LATITUD,
-	 t5.LONGITUD,
-	 t2.CANTIDAD,
-	 t2.PRECIO
-FROM
-    TB_MEDICAMENTO t1
-INNER JOIN TB_FARMACIA_MEDICAMENTO t2 
-    ON t1.ID_MEDICAMENTO = t2.ID_MEDICAMENTO		
-INNER JOIN TB_CATEGORIA t3
-    ON t1.ID_CATEGORIA = t3.ID_CATEGORIA
-INNER JOIN TB_SUB_CATEGORIA t4
-    ON t4.ID_CATEGORIA = t3.ID_CATEGORIA
-INNER JOIN TB_FARMACIA t5
-    ON t5.ID_FARMACIA = t2.ID_FARMACIA
-
-
-create procedure USP_Buscar_Producto(in texto varchar(100))
-begin
-   SELECT DISTINCT
-   t1.NOMBRE as NOMBRE_PRODUCTO,
-	 t3.NOMBRE_CATEGORIA,
-	 t5.NOMBRE as NOMBRE_FARMACIA,
-	 t5.DIRECCION,
-	 t5.LATITUD,
-	 t5.LONGITUD,
-	 t2.CANTIDAD,
-	 t2.PRECIO
-FROM
-    TB_MEDICAMENTO t1
-INNER JOIN TB_FARMACIA_MEDICAMENTO t2 
-    ON t1.ID_MEDICAMENTO = t2.ID_MEDICAMENTO		
-INNER JOIN TB_CATEGORIA t3
-    ON t1.ID_CATEGORIA = t3.ID_CATEGORIA
-INNER JOIN TB_SUB_CATEGORIA t4
-    ON t4.ID_CATEGORIA = t3.ID_CATEGORIA
-INNER JOIN TB_FARMACIA t5
-    ON t5.ID_FARMACIA = t2.ID_FARMACIA
-
-where t1.NOMBRE like CONCAT('%', texto , '%');
-				
-end;
-
-
-
-call USP_Buscar_Producto("");
