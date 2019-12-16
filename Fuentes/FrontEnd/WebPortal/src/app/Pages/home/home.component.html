@@ -22,9 +22,9 @@
   
     <ng-template #itemTemplate let-item>
       <div class="item">
-        <img src="{{item.flag}}" height="25">
-        <span [innerHTML]="item.name"></span> &nbsp; | &nbsp;
-        <small>Population: {{item.population}}</small>
+        <img src="{{ruta_imagen+item.ARCHIVO_IMAGEN}}" height="25">
+        <span [innerHTML]="item.NOMBRE_PRODUCTO"></span> &nbsp; | &nbsp;
+        <small>Categoria: {{item.NOMBRE_CATEGORIA}}</small>
       </div>
     </ng-template>
   
@@ -32,4 +32,3 @@
       <div [innerHTML]="notFound"></div>
     </ng-template>
   </div>
-

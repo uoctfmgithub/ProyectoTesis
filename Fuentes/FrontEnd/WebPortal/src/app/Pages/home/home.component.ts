@@ -10,37 +10,29 @@ import {homeService} from './home.Service';
 
 
 export class HomeComponent implements OnInit {
+  data:string;
 
-  keyword = 'name';
-  states = [
-    {
-      name: 'Arkansas',
-      population: '2.978M',
-      flag: 'https://upload.wikimedia.org/wikipedia/commons/9/9d/Flag_of_Arkansas.svg'
-    },
-    {
-      name: 'California',
-      population: '39.14M',
-      flag: 'https://upload.wikimedia.org/wikipedia/commons/0/01/Flag_of_California.svg'
-    },
-    {
-      name: 'Florida',
-      population: '20.27M',
-      flag: 'https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Florida.svg'
-    },
-    {
-      name: 'Texas',
-      population: '27.47M',
-      flag: 'https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Texas.svg'
-    }
-  ];
+  constructor(private homeService: homeService) {}
 
-  constructor(private homeService: homeService) { 
-    
+  public dataBuscarProducto:any[];
+  
+  ruta_imagen = '../../../assets/imagenes_producto/';
+  keyword = 'NOMBRE_PRODUCTO';
+  states = this.dataBuscarProducto;
+
+  dataByName(){
+    if (this.data = null) {
+      this.data = 'null'
+    } 
+    this.homeService.getBuscarMedicamentoTexto(this.data).subscribe(res=>{
+      this.dataBuscarProducto=res[0];
+      console.log(JSON.stringify(this.dataBuscarProducto))
+      this.states = this.dataBuscarProducto;
+    });
   }
 
   ngOnInit() {
-
+    this.dataByName();
   }
 
 }

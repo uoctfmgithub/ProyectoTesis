@@ -22,7 +22,7 @@ export class homeService{
     configUrl=this.globals.urlService + 'medicamentos';
 
       getBuscarMedicamentoTexto(texto){
-        return this.http.get<any>(this.configUrl+"/"+texto,httpOptions);
+        return this.http.get<any>(this.configUrl+"/buscar/"+texto,httpOptions);
       }
 
     }
