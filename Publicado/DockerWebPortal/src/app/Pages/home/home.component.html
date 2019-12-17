@@ -17,7 +17,10 @@
       placeHolder="Nombre del producto"
       historyIdentifier="states"
       [itemTemplate]="itemTemplate"
-      [notFoundTemplate]="notFoundTemplate">
+      [notFoundTemplate]="notFoundTemplate"
+      [(ngModel)]="name"
+      (keyup.enter)="resultado()">
+      
     </ng-autocomplete>
   
     <ng-template #itemTemplate let-item>
@@ -27,8 +30,27 @@
         <small>Categoria: {{item.NOMBRE_CATEGORIA}}</small>
       </div>
     </ng-template>
-  
+    <!-- <mat-form-field>
+      <input matInput [(ngModel)]="name" placeholder="What's your name?">
+    </mat-form-field> -->
+    <!-- <button mat-button (click)="resultado()">BUSCAR</button>  -->
+
     <ng-template #notFoundTemplate let-notFound>
       <div [innerHTML]="notFound"></div>
     </ng-template>
+
+
   </div>
+  <div  class="cardList">
+    <ng-container *ngFor="let NOMBRE_PRODUCTO of fetchData">
+      <mat-card class="cardListItem">           
+      <mat-card-title>
+          {{NOMBRE_PRODUCTO.NOMBRE_PRODUCTO}}
+      </mat-card-title>
+      <mat-card-content>
+          {{NOMBRE_PRODUCTO.NOMBRE_CATEGORIA}}
+      </mat-card-content>
+      <img mat-card-image src="{{ruta_imagen+NOMBRE_PRODUCTO.ARCHIVO_IMAGEN}}" style="height: 70%;width: 50%;">
+      </mat-card>
+    </ng-container>
+</div>
