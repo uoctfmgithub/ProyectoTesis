@@ -1,5 +1,5 @@
 {
-  "name": "appwebprofarm",
+  "name": "prodfarm-web",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
