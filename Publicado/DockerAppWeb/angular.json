@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/WebPortal",
+            "outputPath": "dist/ProdFarmWeb",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -58,18 +58,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "WebPortal:build"
+            "browserTarget": "ProdFarmWeb:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "WebPortal:build:production"
+              "browserTarget": "ProdFarmWeb:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "WebPortal:build"
+            "browserTarget": "ProdFarmWeb:build"
           }
         },
         "test": {
@@ -106,15 +106,15 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "WebPortal:serve"
+            "devServerTarget": "ProdFarmWeb:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "WebPortal:serve:production"
+              "devServerTarget": "ProdFarmWeb:serve:production"
             }
           }
         }
       }
     }},
-  "defaultProject": "WebPortal"
+  "defaultProject": "ProdFarmWeb"
 }

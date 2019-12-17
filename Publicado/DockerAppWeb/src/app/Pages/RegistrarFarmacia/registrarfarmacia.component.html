@@ -1,0 +1,102 @@
+         <div style="padding: 2%;">
+          <h1 style="text-align: center;">Registros de Farmacias</h1>
+            <mat-form-field>
+                  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar">
+            </mat-form-field>
+            <button mat-icon-button (click)="NuevaFarmacia()"><mat-icon>add_box</mat-icon></button>   
+                 
+              <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+              
+                <!-- ID Column -->
+                <ng-container matColumnDef="ID_FARMACIA">
+                  <th mat-header-cell *matHeaderCellDef> No. </th>
+                  <td mat-cell *matCellDef="let element"> {{element.ID_FARMACIA}} </td>
+                </ng-container>
+              
+                <!-- Nombre Column -->
+                <ng-container matColumnDef="NOMBRE">
+                  <th mat-header-cell *matHeaderCellDef> Nombre </th>
+                  <td mat-cell *matCellDef="let element"> {{element.NOMBRE}} </td>
+                </ng-container>
+    
+                <!-- Direccion Column -->
+                <ng-container matColumnDef="DIRECCION">
+                    <th mat-header-cell *matHeaderCellDef> Direccion </th>
+                    <td mat-cell *matCellDef="let element"> {{element.DIRECCION}} </td>
+                  </ng-container>
+              
+                <!-- Telefono Column -->
+                <!-- <ng-container matColumnDef="TELEFONO">
+                  <th mat-header-cell *matHeaderCellDef> Telefono </th>
+                  <td mat-cell *matCellDef="let element"> {{element.TELEFONO}} </td>
+                </ng-container> -->
+              
+                <!-- Movil Column -->
+                <!-- <ng-container matColumnDef="MOVIL">
+                  <th mat-header-cell *matHeaderCellDef> Movil </th>
+                  <td mat-cell *matCellDef="let element"> {{element.MOVIL}} </td>
+                </ng-container> -->
+
+                <!-- Latitud Column -->
+                <!-- <ng-container matColumnDef="LATITUD">
+                  <th mat-header-cell *matHeaderCellDef> Latitud </th>
+                  <td mat-cell *matCellDef="let element"> {{element.LATITUD}} </td>
+                </ng-container> -->
+
+
+                <!-- Longitud Column -->
+                <!-- <ng-container matColumnDef="LONGITUD">
+                  <th mat-header-cell *matHeaderCellDef> Longitud </th>
+                  <td mat-cell *matCellDef="let element"> {{element.LONGITUD}} </td>
+                </ng-container> -->
+
+
+                <!-- Provincia Column -->
+                <ng-container matColumnDef="PROVINCIA">
+                  <th mat-header-cell *matHeaderCellDef> Provincia </th>
+                  <td mat-cell *matCellDef="let element"> {{element.PROVINCIA}} </td>
+                </ng-container>
+
+
+
+                <!-- Correo Column -->
+                <ng-container matColumnDef="CORREO">
+                  <th mat-header-cell *matHeaderCellDef> Correo </th>
+                  <td mat-cell *matCellDef="let element"> {{element.CORREO}} </td>
+                </ng-container>
+
+
+
+                <!-- Pais Column -->
+                <!-- <ng-container matColumnDef="ID_PAIS">
+                  <th mat-header-cell *matHeaderCellDef> Pais </th>
+                  <td mat-cell *matCellDef="let element"> {{element.ID_PAIS}} </td>
+                </ng-container> -->
+
+
+
+                <!-- Codigo Postal Column -->
+                <ng-container matColumnDef="CODIGO_POSTAL">
+                  <th mat-header-cell *matHeaderCellDef> Codigo Postal </th>
+                  <td mat-cell *matCellDef="let element"> {{element.CODIGO_POSTAL}} </td>
+                </ng-container>
+
+
+              
+                 <!-- Botones colum -->
+                 <ng-container matColumnDef="modificar">
+                  <th mat-header-cell *matHeaderCellDef> Modificar </th>
+                  <td mat-cell *matCellDef="let element">             
+                      <button mat-icon-button (click)="DataCompararById(element.ID_FARMACIA)"><mat-icon>edit</mat-icon></button>             
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="eliminar">
+                    <th mat-header-cell *matHeaderCellDef> Eliminar </th>
+                    <td mat-cell *matCellDef="let element">             
+                        <button mat-icon-button (click)="DataCompararDeleteById(element.ID_FARMACIA)"><mat-icon>delete</mat-icon></button>             
+                    </td>
+                  </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
+            </div>
