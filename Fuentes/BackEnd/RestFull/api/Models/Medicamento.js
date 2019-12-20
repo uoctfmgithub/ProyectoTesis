@@ -38,8 +38,7 @@ Medicamento.getById = function (id, result) {
                 result(err, null);
             }
             else{
-                result(null, res);
-          
+                result(null, res);         
             }
         });   
     } catch (error) {
@@ -55,8 +54,7 @@ Medicamento.deleteById = function(id, result){
                 console.log("error: ", err);
                 result(null, err);
             }
-            else{
-           
+            else{          
              result(null, res);
             }
         }); 
@@ -113,14 +111,13 @@ Medicamento.updateById = function(id, dataMedicamento, result){
   Medicamento.getByTexto = function (texto, result) {
     try {
         console.log("Este es el texto:"+texto);
-    sql.query("call USP_Buscar_Producto('"+ texto +"')",texto, function (err, res) {             
+    sql.query("call USP_Buscar_Producto(1,'"+ texto +"')",texto, function (err, res) {             
             if(err) {
                 console.log("error: ", err);
                 result(err, null);
             }
             else{
                 result(null, res);
-          
             }
         });   
     } catch (error) {

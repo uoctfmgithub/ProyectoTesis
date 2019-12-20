@@ -1,7 +1,7 @@
 'use strict'
 var sql = require('../conexionDB');
 // Cargamos los modelos para usarlos posteriormente
-const MedicamentoModel = require('../models/Medicamento');
+const MedicamentoModel = require('../Models/Medicamento');
 //Declaramos el controller
 let MedicamentoController = {};
 

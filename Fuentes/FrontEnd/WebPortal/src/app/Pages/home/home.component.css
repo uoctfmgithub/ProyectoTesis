@@ -37,10 +37,10 @@ span {
   box-sizing: border-box;
 }
 .cardList > *:not(:last-child) {
-  margin-right: 32px;
+  margin-right: 12px;
 }
 
 .cardListItem {
-  flex: 0 1 calc(33.3% - 32px);
-  margin-top: 1%;
+  flex: 0 1 calc(26.5% - 32px);
+  margin-top: 2%;
 }

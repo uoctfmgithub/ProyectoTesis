@@ -177,9 +177,9 @@ export class DialogModificarFarmacia {
         CODIGO_POSTAL:Farmacia[0].CODIGO_POSTAL,
     };
    
-    if (!Farmacia[0].NOMBRE || !Farmacia[0].DIRECCION || !Farmacia[0].TELEFONO || 
-      !Farmacia[0].MOVIL || !Farmacia[0].LATITUD || !Farmacia[0].LONGITUD || 
-      !Farmacia[0].PROVINCIA || !Farmacia[0].CORREO || !Farmacia[0].ID_PAIS || !Farmacia[0].CODIGO_POSTAL) {
+    if (!Farmacia[0].NOMBRE || !Farmacia[0].DIRECCION || !Farmacia[0].LATITUD || 
+        !Farmacia[0].LONGITUD || !Farmacia[0].PROVINCIA || !Farmacia[0].ID_PAIS || 
+        !Farmacia[0].CODIGO_POSTAL) {
       this.mensajeRellenarData();
     } else {
       this.RegistrarService.updateFarmacia(ID_FARMACIA,farmacia).subscribe(res=>{
