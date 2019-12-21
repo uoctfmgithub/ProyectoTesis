@@ -1,6 +1,6 @@
 'use strict'
 // Cargamos los modelos para usarlos posteriormente
-const FarmaciaModel = require('../models/Farmacia');
+const FarmaciaModel = require('../Models/Farmacia');
 //Declaramos el controller
 let FarmaciaController = {};
 

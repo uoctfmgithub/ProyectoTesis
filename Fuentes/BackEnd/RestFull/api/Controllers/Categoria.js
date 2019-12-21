@@ -1,6 +1,6 @@
 'use strict'
 // Cargamos los modelos para usarlos posteriormente
-const CategoriaModel = require('../models/Categoria');
+const CategoriaModel = require('../Models/Categoria');
 //Declaramos el controller
 let CategoriaController = {};
 
