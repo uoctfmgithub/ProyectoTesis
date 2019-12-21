@@ -11,7 +11,6 @@ module.exports={
         "host"     : "mysqlerver2019.mysql.database.azure.com",
         "user"     : "Hernan@mysqlerver2019",
         "password" : "Root123456",
-        "database" : "dbProdFarm",
-        "port" : 3306
+        "database" : "dbProdFarm"
     }
 };

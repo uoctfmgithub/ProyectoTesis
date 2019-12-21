@@ -6,5 +6,5 @@ export class Globals {
   hidetoolbar: boolean=true;
   idUsuario: string="";
   Usuario: string="";
-  urlService: string = "https://apirestfulfarmacias.azurewebsites.net/";
+  urlService: string = "http://localhost:3000/";
 }

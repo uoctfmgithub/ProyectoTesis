@@ -17,17 +17,18 @@
       placeHolder="Nombre del producto"
       historyIdentifier="states"
       [itemTemplate]="itemTemplate"
+      (selected)="selected($event)"
       [notFoundTemplate]="notFoundTemplate"
       [(ngModel)]="name"
-      (keyup.enter)="resultado()">
+      (keyup.enter)="resultadoEnter()">
       
     </ng-autocomplete>
   
     <ng-template #itemTemplate let-item>
       <div class="item">
         <img src="{{ruta_imagen+item.ARCHIVO_IMAGEN}}" height="25">
-        <span [innerHTML]="item.NOMBRE_PRODUCTO"></span> &nbsp; | &nbsp;
-        <small>Categoria: {{item.NOMBRE_CATEGORIA}}</small>
+        <span [innerHTML]="item.NOMBRE"></span> &nbsp; | &nbsp;
+        <!-- <small>Categoria: {{item.NOMBRE_CATEGORIA}}</small> -->
       </div>
     </ng-template>
     <!-- <mat-form-field>
@@ -41,8 +42,12 @@
 
 
   </div>
+  <div *ngIf="mostrar" class="resultadoEnter">
+    Resultado:{{resultadoTexto}}
+  </div>
   <div  class="cardList">
-    <ng-container *ngFor="let NOMBRE_PRODUCTO of fetchData">
+    
+    <!-- <ng-container *ngFor="let NOMBRE_PRODUCTO of fetchData">
       <mat-card class="cardListItem">           
       <mat-card-title>
           {{NOMBRE_PRODUCTO.NOMBRE_PRODUCTO}}
@@ -51,6 +56,31 @@
           {{NOMBRE_PRODUCTO.NOMBRE_CATEGORIA}}
       </mat-card-content>
       <img mat-card-image src="{{ruta_imagen+NOMBRE_PRODUCTO.ARCHIVO_IMAGEN}}" style="height: 70%;width: 50%;">
+      {{NOMBRE_PRODUCTO.PRECIO | currency : "€" }}
+      </mat-card>
+    </ng-container> -->
+
+    <!-- Data se mostrar con el Enter siempre y cuando haya agregado algun texto -->
+    <ng-container *ngFor="let NOMBRE_PRODUCTO of dataMedicamentos">
+
+      <mat-card class="cardListItem">           
+      <mat-card-title style="text-align: center;">
+        <img mat-card-image src="{{ruta_imagen+NOMBRE_PRODUCTO.ARCHIVO_IMAGEN}}" style="height: 100px; width: 100px;">
+      </mat-card-title>
+      <mat-card-content>
+        {{NOMBRE_PRODUCTO.NOMBRE_PRODUCTO}}
+      </mat-card-content>
+      <mat-card-content>
+        {{NOMBRE_PRODUCTO.NOMBRE_CATEGORIA}}
+      </mat-card-content>
+      <mat-card-content>
+        {{NOMBRE_PRODUCTO.PRECIO | currency : "€" }}
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="btnClick(NOMBRE_PRODUCTO.PRECIO);">Seleccionar</button>
+      </mat-card-actions>
       </mat-card>
     </ng-container>
+
 </div>
+<br><br><br><br><br>

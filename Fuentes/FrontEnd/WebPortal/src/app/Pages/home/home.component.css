@@ -44,3 +44,8 @@ span {
   flex: 0 1 calc(26.5% - 32px);
   margin-top: 2%;
 }
+.resultadoEnter{
+  /* font-family: Verdana; */
+  font-family: 'Open Sans';
+  font-size: 25px;
+}

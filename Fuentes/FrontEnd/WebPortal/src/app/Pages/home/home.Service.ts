@@ -21,8 +21,20 @@ export class homeService{
     constructor(private http: HttpClient, private globals : Globals){ }
     configUrl=this.globals.urlService + 'medicamentos';
 
+    getBuscarMedicamento(){
+      return this.http.get<any>(this.configUrl,httpOptions);
+    }
+
       getBuscarMedicamentoTexto(texto){
         return this.http.get<any>(this.configUrl+"/buscar/"+texto,httpOptions);
+      }
+
+      getComparacionPrecio(texto){
+        return this.http.get<any>(this.configUrl+"/comparar/"+texto,httpOptions);
+      }
+
+      getSugerencias(texto){
+        return this.http.get<any>(this.configUrl+"/sugerencias/"+texto,httpOptions);
       }
 
     }

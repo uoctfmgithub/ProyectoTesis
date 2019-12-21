@@ -1,7 +1,7 @@
 'use strict'
 var sql = require('../conexionDB');
 // Cargamos los modelos para usarlos posteriormente
-const MedicamentoModel = require('../Models/Medicamento');
+const MedicamentoModel = require('../models/Medicamento');
 //Declaramos el controller
 let MedicamentoController = {};
 
@@ -89,6 +89,42 @@ MedicamentoController.getMedicamentoByTexto = function(req, res){
       req.params.texto="";
     }
     MedicamentoModel.getByTexto(req.params.texto, function(err, task) {
+     
+      if (err)
+        res.send(err);
+      res.json(task);
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+MedicamentoController.getComparacionPrecioTexto = function(req, res){
+  try {
+    console.log('texto: '+req.params.texto)
+    if (req.params.texto=="null")
+    {
+      req.params.texto="";
+    }
+    MedicamentoModel.getComparacionPrecio(req.params.texto, function(err, task) {
+     
+      if (err)
+        res.send(err);
+      res.json(task);
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+MedicamentoController.getSugerenciasMedicamentos = function(req, res){
+  try {
+    console.log('texto: '+req.params.texto)
+    if (req.params.texto=="null")
+    {
+      req.params.texto="";
+    }
+    MedicamentoModel.getSugerencias(req.params.texto, function(err, task) {
      
       if (err)
         res.send(err);

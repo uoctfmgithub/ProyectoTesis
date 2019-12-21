@@ -15,6 +15,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { HttpClientModule } from '@angular/common/http';
 //componentes
 import { HomeComponent } from './Pages/home/home.component';
+import {ComparacionComponent} from './Pages/home/ComparacionMedicamento/comparacion.medicamento';
 
 import { HeaderComponent } from './Share/navigation/header/header.component';
 import { SidenavListComponent } from './Share/navigation/sidenav-list/sidenav-list.component';
@@ -27,6 +28,7 @@ import {Globals} from './Share/Global';
   declarations: [
     AppComponent,
     HomeComponent,
+    ComparacionComponent,
     HeaderComponent,
     SidenavListComponent,
     LayoutComponent,

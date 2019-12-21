@@ -1,0 +1,87 @@
+
+<section *ngFor="let dataProducto of arrayDesdeService">
+ <article>
+     <mat-card>
+        <mat-card-header>
+         <mat-card-title>
+             {{dataProducto.NOMBRE_PRODUCTO}}
+         </mat-card-title>
+         <mat-card-subtitle>
+            {{dataProducto.NOMBRE_CATEGORIA}}
+         </mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image src="{{ruta_imagen+dataProducto.ARCHIVO_IMAGEN}}" style="height: 250px; width: 250px;">
+     </mat-card>
+</article>
+<article>
+    <mat-card>
+        <mat-card-title>
+            EL MEJOR PRECIO:
+        </mat-card-title>
+        <mat-card-content style="font-size: 60px;">
+            <b>{{dataProducto.PRECIO | currency : "€" }}</b>
+        </mat-card-content>
+        <mat-card-content>
+            {{dataProducto.NOMBRE_FARMACIA}}
+        </mat-card-content>
+    </mat-card>
+</article>
+</section>
+
+<!-- <button mat-raised-button color="primary" (click)="mostrarComparacion();">Prueba</button> -->
+
+    <h1 *ngIf="mostrar" style="font-size: 30px;">Todos los precios</h1>
+
+
+<section >
+    <article *ngFor="let dataComparacionPrecios of dataComparacionPrecios">
+        <mat-card style="height: 80%;">
+           <mat-card-header>
+               <section>
+                   <article>
+                    <img mat-card-image src="{{ruta_imagen+dataComparacionPrecios.ARCHIVO_IMAGEN}}" style="height: 180px; width: 180px;">
+                   </article>
+                   <article>
+                    <mat-card-title>
+                        Nombre Farmacia: {{dataComparacionPrecios.NOMBRE_FARMACIA}}
+                    </mat-card-title>
+                    Distancia:
+                    <mat-card-content style="font-size: 30px;">
+                         1 KM
+                    </mat-card-content>
+                    Precio:
+                    <mat-card-content style="font-size: 30px;">
+                        {{dataComparacionPrecios.PRECIO | currency : "€"}}
+                    </mat-card-content>
+                    <mat-card-subtitle>
+                       Dirección: {{dataComparacionPrecios.DIRECCION}}
+                    </mat-card-subtitle>
+                   </article>
+               </section>
+           </mat-card-header>
+           <!-- <img mat-card-image src="{{ruta_imagen+dataProducto.ARCHIVO_IMAGEN}}"> -->
+        </mat-card>
+   </article>
+   </section>
+
+   <h1 *ngIf="mostrar" style="font-size: 30px;">Sugerencias</h1>
+
+   <section >
+    <article *ngFor="let dataSugerencia of dataSugerencias">
+        <mat-card style="height: 70%;">
+           <mat-card-header>
+               <section>
+                   <article>
+                    <img mat-card-image src="{{ruta_imagen+dataSugerencia.ARCHIVO_IMAGEN}}" style="height: 70%; width: 90%;">
+                   </article>
+                   <article>
+                    <mat-card-title>
+                        {{dataSugerencia.NOMBRE}}
+                    </mat-card-title>
+                   </article>
+               </section>
+           </mat-card-header>
+           <!-- <img mat-card-image src="{{ruta_imagen+dataProducto.ARCHIVO_IMAGEN}}"> -->
+        </mat-card>
+   </article>
+   </section>
