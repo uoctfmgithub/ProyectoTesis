@@ -11,11 +11,14 @@ import { MaterialModule } from './material.module';
 import { LayoutModule } from '@angular/cdk/layout';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
+
 //Http
 import { HttpClientModule } from '@angular/common/http';
+import { AgmCoreModule } from '@agm/core';
 //componentes
 import { HomeComponent } from './Pages/home/home.component';
 import {ComparacionComponent} from './Pages/home/ComparacionMedicamento/comparacion.medicamento';
+import {LocalizacionComponent} from './Pages/home/GeolocalizacionGoogle/localizacion.component';
 
 import { HeaderComponent } from './Share/navigation/header/header.component';
 import { SidenavListComponent } from './Share/navigation/sidenav-list/sidenav-list.component';
@@ -29,6 +32,7 @@ import {Globals} from './Share/Global';
     AppComponent,
     HomeComponent,
     ComparacionComponent,
+    LocalizacionComponent,
     HeaderComponent,
     SidenavListComponent,
     LayoutComponent,
@@ -42,7 +46,11 @@ import {Globals} from './Share/Global';
     LayoutModule,
     FlexLayoutModule,  
     HttpClientModule,
-    AutocompleteLibModule
+    AutocompleteLibModule,
+    AgmCoreModule.forRoot({
+      apiKey:'AIzaSyDKiDvxhAlOzEc_xWtKVW90Rh6COYi1o_U',
+      libraries:['places']
+    })
   ],
   entryComponents: [
  

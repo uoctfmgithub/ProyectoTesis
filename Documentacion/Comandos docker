@@ -1,0 +1,76 @@
+
+:::::::::Comandos docker para despliegue en Azure:::::::::::::::
+docker login dockercontainerweb.azurecr.io
+
+docker build . -t webportal:latest
+docker build . -t appwebprodfarm:latest
+docker build . -t apirestfulservicios:latest
+
+docker tag webportal dockercontainerweb.azurecr.io/webportal:latest
+
+docker tag appwebprodfarm dockercontainerweb.azurecr.io/appwebprodfarm:latest
+
+docker tag apirestfulservicios dockercontainerweb.azurecr.io/apirestfulservicios:latest
+
+
+docker push dockercontainerweb.azurecr.io/webportal:latest
+docker pull dockercontainerweb.azurecr.io/webportal:latest
+
+
+docker push dockercontainerweb.azurecr.io/appwebprodfarm:latest
+docker pull dockercontainerweb.azurecr.io/appwebprodfarm:latest
+
+docker push dockercontainerweb.azurecr.io/apirestfulservicios:latest
+docker pull dockercontainerweb.azurecr.io/apirestfulservicios:latest
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::Comando Docker para despliegue local ne Docker Tool box:::::::::::::::::::::
+
+Instalar Mysql en Docker
+------------------------
+sudo docker pull mysql // Descarga la imagen 
+
+sudo docker run -p 3306:3306 --name mysql_ult -e MYSQL_ROOT_PASSWORD=Root123456 -d mysql --character-set-server=utf8 --collation-server=utf8_unicode_ci // Crea el container
+
+
+
+docker run -d -p 80:80 webportal:latest
+docker run -d -p 80:80 appwebprodfarm:latest
+docker run -d -p 3000:3000 apirestfulservicios:latest
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::Comando Docker adicionales:::::::::::::::::::::::::::::::::::::::::::::::::
+docker images //muestrar la images creadas
+docker start <idcontainer> inicia un container estado UP
+docker stop <idcontainer> detiene un container estado exited
+docker rm <idcontainer> // borra container (debe tener estado exited)
+docker ps -a // muestra los contairnes que estan ejecuntados (status = UP) y los que estan detenidos (status = exited)
+docker logs <idcontainer> muestra el log del container
+docker pull <imagen> // descargar imagen de hubdocker
+docker run -d -p 8080:80 nginx:alpine // genera y corre el container
+docker-machine restart //cuando no reconoce las credenciales de azure container
+docker image prune -a // borra todas las imagenes
+sudo docker exec -it mysql_ult mysql -uroot // ejecuta mysql del contairner
+docker tag hello-world dockerappweb.azurecr.io/mysql_ult
+docker tag nginx:alpine dockerappweb.azurecr.io/nginx
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::Git Hub:::::::::::::::::::::::::::::::::::::::::::::::
+hecho "# Soltenc2019-Proyecto_Productos_Farmacias" >> README.md
+git init //inicia git hub en el directorio local
+git add README.md // agrega un archivo readme
+git commit -m "first commit" // inicia el primer commit (sube archivos al repositorio)
+git remote add origin https://github.com/uoctfmgithub/ProyectoTesis.git  // setea la ruta para que se hagan los commits
+git push -u origin masterub // indica que es el master
+
+
+git clone https://github.com/uoctfmgithub/ProyectoTesis.git // para descargar el proyecto
+sudo git pull https://github.com/uoctfmgithub/ProyectoTesis.git// para subir cambios
+
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+ 
+
+
+
+

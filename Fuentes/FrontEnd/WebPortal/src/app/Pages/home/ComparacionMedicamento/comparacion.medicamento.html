@@ -10,7 +10,9 @@
             {{dataProducto.NOMBRE_CATEGORIA}}
          </mat-card-subtitle>
         </mat-card-header>
+        <mat-card-title style="text-align: center;">
         <img mat-card-image src="{{ruta_imagen+dataProducto.ARCHIVO_IMAGEN}}" style="height: 250px; width: 250px;">
+    </mat-card-title>
      </mat-card>
 </article>
 <article>
@@ -38,17 +40,24 @@
         <mat-card style="height: 80%;">
            <mat-card-header>
                <section>
-                   <article>
+                   <article >
                     <img mat-card-image src="{{ruta_imagen+dataComparacionPrecios.ARCHIVO_IMAGEN}}" style="height: 180px; width: 180px;">
                    </article>
                    <article>
-                    <mat-card-title>
-                        Nombre Farmacia: {{dataComparacionPrecios.NOMBRE_FARMACIA}}
-                    </mat-card-title>
-                    Distancia:
-                    <mat-card-content style="font-size: 30px;">
-                         1 KM
+                    <!-- <mat-card-header> -->
+                    <mat-card-content>
+                        {{dataComparacionPrecios.NOMBRE_PRODUCTO}}
                     </mat-card-content>
+                    <mat-card-subtitle>Nombre Farmacia:
+                        <br>
+                        {{dataComparacionPrecios.NOMBRE_FARMACIA}}</mat-card-subtitle>
+                    <!-- </mat-card-header> -->
+                    Distancia:
+                    <mat-card-subtitle style="font-size: 20px;">
+                        1KM
+                     </mat-card-subtitle>
+
+
                     Precio:
                     <mat-card-content style="font-size: 30px;">
                         {{dataComparacionPrecios.PRECIO | currency : "€"}}
@@ -65,7 +74,7 @@
    </section>
 
    <h1 *ngIf="mostrar" style="font-size: 30px;">Sugerencias</h1>
-
+<!-- 
    <section >
     <article *ngFor="let dataSugerencia of dataSugerencias">
         <mat-card style="height: 70%;">
@@ -81,7 +90,30 @@
                    </article>
                </section>
            </mat-card-header>
-           <!-- <img mat-card-image src="{{ruta_imagen+dataProducto.ARCHIVO_IMAGEN}}"> -->
         </mat-card>
    </article>
-   </section>
+   </section> -->
+
+   <div fxLayout.xs="column" fxLayout="row wrap" fxLayoutGap="10px" ngClass.gt-xs="ml-10">
+    <mat-card  *ngFor="let dataSugerencia of dataSugerencias" fxFlex.sm="0 1 calc(50%-10px)" fxFlex.md="0 1 calc(33%-10px)" fxFlex.gt-md="0 1 calc(25%-10px)">
+        <mat-card-title fxLayout.gt-xs="row" fxLayout.xs="column">{{dataSugerencia.NOMBRE}}</mat-card-title>
+        <br><br>
+        <mat-card-title style="text-align: center;">
+      <img mat-card-image src="{{ruta_imagen+dataSugerencia.ARCHIVO_IMAGEN}}" style="height: 40%; width: 20%;">
+    </mat-card-title>
+      <!-- <mat-card-content>Primary card content. Intended for blocks of text</mat-card-content> -->
+    </mat-card>
+    </div>
+ 
+
+    <!-- <div fxLayout.xs="column" fxLayout="row wrap" fxLayoutGap="10px" ngClass.gt-xs="ml-10">
+        <mat-card  *ngFor="let dataSugerencia of dataSugerencias" fxFlex.sm="0 1 calc(50%-10px)" fxFlex.md="0 1 calc(33%-10px)" fxFlex.gt-md="0 1 calc(25%-10px)">
+          <mat-card-title fxLayout.gt-xs="row" fxLayout.xs="column">
+            <span fxFlex="80%">{{dataSugerencia.NOMBRE}}</span>
+            <mat-icon fxFlex="10%">mode_edit</mat-icon>
+            <mat-icon fxFlex="10%">delete</mat-icon>
+          </mat-card-title>
+          <img mat-card-image [src]="{{ruta_imagen+dataSugerencia.ARCHIVO_IMAGEN}}">
+        </mat-card>
+      </div> -->
+
