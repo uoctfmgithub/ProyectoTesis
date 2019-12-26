@@ -12,12 +12,51 @@
         <span class="menu-spacer"></span>
         <div fxShow="true" fxHide.lt-md="true">
             <ul fxLayout fxLayoutGap="15px" class="navigation-items">
+                
+                <!-- <mat-button><mat-icon>search</mat-icon></mat-button> -->
+                <!-- <div *ngIf="flagbusqueda" class="ng-autocomplete">
+                    <ng-autocomplete
+                      [data]="states"
+                      [searchKeyword]="keyword"
+                      placeHolder="Nombre del producto"
+                      historyIdentifier="states"
+                      [itemTemplate]="itemTemplate"
+                      (selected)="selected($event)"
+                      [notFoundTemplate]="notFoundTemplate"
+                      [(ngModel)]="name"
+                      (keyup.enter)="resultadoEnter()">
+                      
+                    </ng-autocomplete>
+                  
+                    <ng-template #itemTemplate let-item>
+                      <div class="item">
+                        <img src="{{ruta_imagen+item.ARCHIVO_IMAGEN}}" height="25">
+                        <span [innerHTML]="item.NOMBRE"></span> &nbsp; | &nbsp;
+                       
+                      </div>
+                    </ng-template>
+                
+                    <ng-template #notFoundTemplate let-notFound>
+                      <div [innerHTML]="notFound"></div>
+                    </ng-template>
+                
+                
+                  </div> -->
+<div *ngIf="globals.ocultar">
+  <button mat-icon-button  (click)="activarbusqueda()">
+    <mat-icon>search</mat-icon>
+  </button>
+</div>
+                
                     <!-- <a mat-button [routerLink]="'/accounts'"> Inicio </a>
-                    <a mat-button [routerLink]="'/create-account'"> Nosotros </a>
+                  
                     <a mat-button [routerLink]="'/contacts'"> Contacto </a>
                     <a mat-button [routerLink]="'/create-contact'"> Login </a>
                     <a mat-button [routerLink]="'/activities'"> Registrarse </a> -->
                     <!-- <a mat-button [routerLink]="'/create-activity'"> Create Activity </a> -->
+                    <!-- <i class="material-icons">
+                        search
+                        </i> -->
             </ul>
         </div>
 </mat-toolbar>

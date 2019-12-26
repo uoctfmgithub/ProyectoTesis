@@ -5,4 +5,5 @@ export interface Medicamento {
     LABORATORIO : string;
     MARCA : string;
     ID_CATEGORIA : number ;
+    ID_SUB_CATEGORIA : number;
     }

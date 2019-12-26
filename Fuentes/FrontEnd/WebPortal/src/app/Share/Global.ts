@@ -8,4 +8,5 @@ export class Globals {
   Usuario: string="";
   urlService: string = "https://apirestfulfarmacias.azurewebsites.net/";
   // urlService: string = "http://localhost:3000/";
+  ocultar: boolean=false;
 }

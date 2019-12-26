@@ -36,6 +36,7 @@ export class RegistrarComponent implements OnInit {
   LABORATORIO : string;
   MARCA : string;
   ID_CATEGORIA : number ;
+  ID_SUB_CATEGORIA : number;
 
  
 
@@ -57,7 +58,7 @@ export class RegistrarComponent implements OnInit {
   }
 
   
-  displayedColumns: string[] = ['ID_MEDICAMENTO','NOMBRE', 'DESCRIPCION', 'LABORATORIO', 'MARCA','ID_CATEGORIA', 'modificar', 'eliminar'];
+  displayedColumns: string[] = ['ID_MEDICAMENTO','NOMBRE', 'DESCRIPCION', 'ID_CATEGORIA', 'modificar', 'eliminar'];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
 
 
@@ -92,7 +93,8 @@ export class RegistrarComponent implements OnInit {
           this.CompararFoundById[0].DESCRIPCION = result.DESCRIPCION;
           this.CompararFoundById[0].LABORATORIO = result.LABORATORIO;   
           this.CompararFoundById[0].MARCA = result.MARCA;
-          this.CompararFoundById[0].ID_CATEGORIA = result.ID_CATEGORIA;    
+          this.CompararFoundById[0].ID_CATEGORIA = result.ID_CATEGORIA;
+          this.CompararFoundById[0].ID_SUB_CATEGORIA = result.ID_SUB_CATEGORIA;    
           }
         }
 
@@ -184,10 +186,11 @@ export class DialogoModificarMedicamento {
         LABORATORIO:Medicamento[0].LABORATORIO,
         MARCA:Medicamento[0].MARCA,
         ID_CATEGORIA:Medicamento[0].ID_CATEGORIA,
+        ID_SUB_CATEGORIA:Medicamento[0].ID_SUB_CATEGORIA
     };
 
     if (!Medicamento[0].NOMBRE || !Medicamento[0].DESCRIPCION || !Medicamento[0].LABORATORIO || 
-      !Medicamento[0].MARCA || !Medicamento[0].ID_CATEGORIA ) {
+      !Medicamento[0].MARCA || !Medicamento[0].ID_CATEGORIA || !Medicamento[0].ID_SUB_CATEGORIA) {
       this.mensajeRellenarData();
     } else {
       this.RegistrarService.updateMedicamento(ID_MEDICAMENTO,medicamento).subscribe(res=>{
@@ -214,6 +217,7 @@ export class DialogoAgregarMedicamento {
   LABORATORIO : string;
   MARCA :string;
   ID_CATEGORIA: 1;
+  ID_SUB_CATEGORIA : 1;
 
   CloseDialog(): void {
     this.dialogRefAgregar.close();
@@ -242,10 +246,11 @@ export class DialogoAgregarMedicamento {
         LABORATORIO:this.LABORATORIO,
         MARCA:this.MARCA,
         ID_CATEGORIA:this.ID_CATEGORIA,
+        ID_SUB_CATEGORIA:this.ID_SUB_CATEGORIA
     };
 
     if (!this.NOMBRE || !this.DESCRIPCION || !this.LABORATORIO 
-      || !this.MARCA || !this.ID_CATEGORIA ) {
+      || !this.MARCA || !this.ID_CATEGORIA || !this.ID_SUB_CATEGORIA) {
         this.mensajeRellenarData();
     } else{
       

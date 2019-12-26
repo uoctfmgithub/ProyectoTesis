@@ -3,8 +3,8 @@ import {ServiceService} from '../ServiciosEnvioData/service.service';
 import {homeService} from '../../home/home.Service';
 import {ComparacionModelo} from './comparacionPrecios.modelo';
 import { Router } from '@angular/router';
-
-
+import {Globals} from '../../../Share/Global';
+import {NgModule} from '@angular/core';
 
 
 @Component({
@@ -12,7 +12,12 @@ import { Router } from '@angular/router';
   templateUrl: './comparacion.medicamento.html',
   styleUrls: ['./comparacion.medicamento.css']
 })
-
+@NgModule({
+  providers: [Globals ], // this depends on situation, see below
+  imports: [
+  
+  ]
+})
 export class ComparacionComponent implements OnInit {
 
   textoCompleto:String;
@@ -21,7 +26,8 @@ export class ComparacionComponent implements OnInit {
   public dataComparacionPreciosAll:any[];
 
   dataSugerencias:any =[];
-
+ 
+  public ocultar = true;
 
   public arrayDesdeService: Array<any>;
 
@@ -34,13 +40,16 @@ export class ComparacionComponent implements OnInit {
 
 
   // _service: ServiceService nos pasara el json del componente 1 al componente 2
-  constructor (private _service: ServiceService,private homeService: homeService,private router: Router) {
+  constructor (private _service: ServiceService,private homeService: homeService,private router: Router, private globals: Globals) {
   }
 
       ngOnInit() {
-        console.log("Hola");
+
+this.globals.ocultar = true;
+
+        // console.log("Hola");
         this.arrayDesdeService = this._service.getArray();
-        console.log("COMPONENTE 2 "+ JSON.stringify(this.arrayDesdeService))
+        // console.log("COMPONENTE 2 "+ JSON.stringify(this.arrayDesdeService))
 
         // this.cantidadconsultaprecio=this.arrayDesdeService.length;
        
@@ -52,10 +61,13 @@ export class ComparacionComponent implements OnInit {
           this.router.navigateByUrl('/home');
         }
         
+        
       }
 
 
       mostrarComparacion(){
+
+        this.ocultar = true;
         var i=0;
         this.textoCompleto=this.arrayDesdeService[0].NOMBRE_PRODUCTO;
         
@@ -77,7 +89,7 @@ export class ComparacionComponent implements OnInit {
       }
 
             // this.dataComparacionPrecios=res[0];
-          console.log(JSON.stringify(this.dataComparacionPrecios))
+          // console.log(JSON.stringify(this.dataComparacionPrecios))
         });
 
         this.BuscarComparacion();
@@ -98,15 +110,14 @@ export class ComparacionComponent implements OnInit {
         // });
 
         this.homeService.getSugerencias(this.arrayDesdeService[0].ID_SUB_CATEGORIA).subscribe(res=>{
-          console.log('idsubcategoria :' + this.arrayDesdeService[0].ID_SUB_CATEGORIA)
+
           this.dataSugerencias=res[0];
 
             // this.dataComparacionPrecios=res[0];
-          console.log(JSON.stringify(this.dataSugerencias))
+          // console.log(JSON.stringify(this.dataSugerencias))
         });
 
         
       }
         // console.log(JSON.stringify(this.dataSugerencias));
-
-      }
+}

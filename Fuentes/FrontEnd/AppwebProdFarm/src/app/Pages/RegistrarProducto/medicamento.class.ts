@@ -5,4 +5,5 @@ export class medicamentoClase {
     public LABORATORIO : string;
     public MARCA : string;
     public ID_CATEGORIA : number ;
+    public ID_SUB_CATEGORIA : number;
     }

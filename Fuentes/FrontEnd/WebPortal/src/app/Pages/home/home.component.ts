@@ -4,14 +4,20 @@ import { Router } from '@angular/router';
 import {ServiceService} from './ServiciosEnvioData/service.service';
 import {ComparacionModelo} from '../home/ComparacionMedicamento/comparacionPrecios.modelo';
 // import {ComparacionComponent} from './ComparacionMedicamento/comparacion.medicamento';
-
+import {NgModule} from '@angular/core';
+import {Globals} from '../../Share/Global';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-
+@NgModule({
+  providers: [Globals ], // this depends on situation, see below
+  imports: [
+  
+  ]
+})
 
 
 export class HomeComponent implements OnInit {
@@ -21,6 +27,8 @@ export class HomeComponent implements OnInit {
   public dataBuscarProductoR:any[];
 
   public mostrar=false;
+
+  // public ocultar = false;
 
   public dataComparacionSeleccionado: Array<ComparacionModelo> = [];
   
@@ -36,7 +44,7 @@ export class HomeComponent implements OnInit {
 
 
   
-  constructor(private homeService: homeService,private router: Router,private _service: ServiceService) {}
+  constructor(private homeService: homeService,private router: Router,private _service: ServiceService, private globals: Globals ) {}
 
   
   
@@ -60,17 +68,19 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.globals.ocultar = false;
     this.dataByName();
   }
 
   public selected(value:any):void {
-    console.log('Selected value is: ', value['NOMBRE']);
+    // console.log('Selected value is: ', value['NOMBRE']);
     this.resultadoSeleccionado(value['NOMBRE']);
   }
 
   resultadoEnter(){
     this.mostrar=true
-    console.log(this.name)
+    // console.log(this.name)
     if (!this.name) {
       alert("inserte un dato")
     } else{
@@ -78,21 +88,20 @@ export class HomeComponent implements OnInit {
       this.homeService.getBuscarMedicamentoTexto(this.name).subscribe(res=>{
         this.dataBuscarProductoR=res[0];
         this.dataMedicamentos = this.dataBuscarProductoR;
-        console.log("DATA ENTER"+JSON.stringify(this.dataMedicamentos))
+        // console.log("DATA ENTER"+JSON.stringify(this.dataMedicamentos))
         this.name = ""
       });
     }
   }
 
   resultadoSeleccionado(nombre){
-    console.log(nombre)
+    // console.log(nombre)
       this.homeService.getBuscarMedicamentoTexto(nombre).subscribe(res=>{
         this.dataBuscarProductoR=res[0];
         this.dataMedicamentos = this.dataBuscarProductoR;
-        console.log("DATA SELECCIONADO"+JSON.stringify(this.dataMedicamentos))
+        // console.log("DATA SELECCIONADO"+JSON.stringify(this.dataMedicamentos))
         this.name = ""
       });
-
   }
   
   // VERDADERO
@@ -101,27 +110,37 @@ export class HomeComponent implements OnInit {
 //     this.router.navigateByUrl('/comparacion');
 // };
 
-  btnClick(DATA){
+  btnClick(){
     // alert(JSON.stringify(DATA))
-
-    var i=0;
-    for (i ; i < this.dataMedicamentos.length; i++) {
-      if (this.dataMedicamentos[i].PRECIO==DATA) {   
-        // delete this.dataFletes[i]
-        this.dataComparacionSeleccionado.push(this.dataMedicamentos[i]) 
-      } else{
-        
-      }
-}
-// console.log("Esta es la data seleccionada Mary"+JSON.stringify(this.dataComparacionSeleccionado))
-
+      this.obtenerPrecioMinimo();
       this.sendArray(this.dataComparacionSeleccionado);
-    this.router.navigateByUrl('/comparacion');
-  }
-
-
+      this.router.navigateByUrl('/comparacion');
+}
   sendArray(datos) {
     this._service.setArray(datos);
   }
 
+  obtenerPrecioMinimo(){
+    var i=0;
+      var precioMin=this.dataMedicamentos[i].PRECIO;
+      for (i ; i < this.dataMedicamentos.length; i++) {
+        // console.log('Precio : '+this.dataMedicamentos[i].PRECIO + 'precio Min. : ' + precioMin)
+        if (precioMin<this.dataMedicamentos[i].PRECIO) {   
+          // delete this.dataFletes[i]
+         // this.dataComparacionSeleccionado.push(this.dataMedicamentos[i])         
+        } else{
+          precioMin=this.dataMedicamentos[i].PRECIO
+        }
+      }
+
+    var i=0;
+      for (i ; i < this.dataMedicamentos.length; i++) {
+        if (this.dataMedicamentos[i].PRECIO==precioMin) {   
+          // delete this.dataFletes[i]
+          this.dataComparacionSeleccionado.push(this.dataMedicamentos[i]) 
+        } else{
+        
+      }     
+    }
+  }
 }
