@@ -16,7 +16,7 @@ const Farmacia = function(farmacia){
 
 Farmacia.getAll = function (result) {
     try {
-        sql.query("call USP_Farmacia(1,null,'','','','','','','','',null,'',null)", function (err, res) {
+        sql.query("call USP_Farmacia(1,null,'','','','','','','','',null,'')", function (err, res) {
 
             if(err) {
                 console.log("error: ", err);
@@ -37,7 +37,7 @@ Farmacia.getAll = function (result) {
 Farmacia.getById = function (id, result) {
     try {
         console.log("Este es el id:"+id);
-    sql.query("call USP_Farmacia('5','"+ id +"','','','','','','','','',null,'',null)",id, function (err, res) {             
+    sql.query("call USP_Farmacia('5','"+ id +"','','','','','','','','',null,'')",id, function (err, res) {             
             if(err) {
                 console.log("error: ", err);
                 result(err, null);
@@ -54,7 +54,7 @@ Farmacia.getById = function (id, result) {
 
 Farmacia.deleteById = function(id, result){
     try {
-        sql.query("call USP_Farmacia('4','"+id+"','','','','','','','','',null,'',null)", [id], function (err, res) {
+        sql.query("call USP_Farmacia('4','"+id+"','','','','','','','','',null,'')", [id], function (err, res) {
 
             if(err) {
                 console.log("error: ", err);
@@ -83,7 +83,7 @@ Farmacia.create = function (newFarmacia, result) {
     newFarmacia.PROVINCIA+"','"+
     newFarmacia.CORREO+"',"+
     newFarmacia.ID_PAIS+",'"+
-    newFarmacia.CODIGO_POSTAL+"','2019-12-11')", newFarmacia, function (err, res) {
+    newFarmacia.CODIGO_POSTAL+"')", newFarmacia, function (err, res) {
             
             if(err) {
                 console.log("error: ", err);
@@ -111,7 +111,7 @@ Farmacia.updateById = function(id, dataFarmacia, result){
     dataFarmacia.PROVINCIA+"','"+
     dataFarmacia.CORREO+"',"+
     dataFarmacia.ID_PAIS+",'"+
-    dataFarmacia.CODIGO_POSTAL+"','2019-12-11')", dataFarmacia, function (err, res) {
+    dataFarmacia.CODIGO_POSTAL+"')", dataFarmacia, function (err, res) {
             if(err) {
                 console.log("error: ", err);
                   result(null, err);

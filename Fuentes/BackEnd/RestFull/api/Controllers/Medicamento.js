@@ -10,10 +10,14 @@ MedicamentoController.getMedicamento = function(req, res){
   try {
     MedicamentoModel.getAll(function(err, task) {
       console.log('controller')
-      if (err)
+      if (err){
         res.send(err);
+      }else{
         console.log('res', task);
-      res.send(task);
+        res.send(task);
+      }
+        
+       
     });
   } catch (error) {
     console.log(error);

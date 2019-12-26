@@ -3,11 +3,12 @@ var sql = require('../conexionDB');
 //Categoria object constructor
 const Categoria = function(categoria){
     this.NOMBRE_CATEGORIA  = categoria.NOMBRE_CATEGORIA;
+    // this.FECHA_CREACION=new Date();
 };
 
 Categoria.getAll = function (result) {
     try {
-        sql.query("call USP_Categoria(1,null,'',null)", function (err, res) {
+        sql.query("call USP_Categoria(1,null,'')", function (err, res) {
 
             if(err) {
                 console.log("error: ", err);
@@ -28,7 +29,7 @@ Categoria.getAll = function (result) {
 Categoria.getById = function (id, result) {
     try {
         console.log("Este es el id:"+id);
-    sql.query("call USP_Categoria('5','"+ id +"','',null)",id, function (err, res) {             
+    sql.query("call USP_Categoria('5','"+ id +"','')",id, function (err, res) {             
             if(err) {
                 console.log("error: ", err);
                 result(err, null);
@@ -45,7 +46,7 @@ Categoria.getById = function (id, result) {
 
 Categoria.deleteById = function(id, result){
     try {
-        sql.query("call USP_Categoria('4','"+id+"','',null)", [id], function (err, res) {
+        sql.query("call USP_Categoria('4','"+id+"','')", [id], function (err, res) {
 
             if(err) {
                 console.log("error: ", err);
@@ -65,7 +66,7 @@ Categoria.deleteById = function(id, result){
 Categoria.create = function (newCategoria, result) {    
  try {
     sql.query("call USP_Categoria(2,0,'"+
-    newCategoria.NOMBRE_CATEGORIA+"','2019-12-11')", newCategoria, function (err, res) {
+    newCategoria.NOMBRE_CATEGORIA+"')", newCategoria, function (err, res) {
             
             if(err) {
                 console.log("error: ", err);
@@ -84,7 +85,7 @@ Categoria.create = function (newCategoria, result) {
 Categoria.updateById = function(id, dataCategoria, result){
    try {
     sql.query("call USP_Categoria(3,"+id+",'"+
-    dataCategoria.NOMBRE_CATEGORIA+"','2019-12-11')", dataCategoria, function (err, res) {
+    dataCategoria.NOMBRE_CATEGORIA+"')", dataCategoria, function (err, res) {
             if(err) {
                 console.log("error: ", err);
                   result(null, err);

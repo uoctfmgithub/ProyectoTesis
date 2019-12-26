@@ -12,7 +12,7 @@ const Medicamento = function(medicamento){
 
 Medicamento.getAll = function (result) {
     try {
-        sql.query("call USP_Medicamento(1,null,'','','',null,'',null)", function (err, res) {
+        sql.query("call USP_Medicamento(1,null,'','','','',null)", function (err, res) {
 
             if(err) {
                 console.log("error: ", err);
@@ -32,7 +32,7 @@ Medicamento.getAll = function (result) {
 Medicamento.getById = function (id, result) {
     try {
         console.log("Este es el id:"+id);
-    sql.query("call USP_Medicamento('5','"+ id +"','','','',null,'',null)",id, function (err, res) {             
+    sql.query("call USP_Medicamento('5','"+ id +"','','','','',null)",id, function (err, res) {             
             if(err) {
                 console.log("error: ", err);
                 result(err, null);
@@ -48,7 +48,7 @@ Medicamento.getById = function (id, result) {
 
 Medicamento.deleteById = function(id, result){
     try {
-        sql.query("call USP_Medicamento('4','"+id+"','','','',null,'',null)", [id], function (err, res) {
+        sql.query("call USP_Medicamento('4','"+id+"','','','','',null)", [id], function (err, res) {
 
             if(err) {
                 console.log("error: ", err);
@@ -68,7 +68,7 @@ Medicamento.create = function (newMedicamento, result) {
         sql.query("call USP_Medicamento(2,0,'"+
     newMedicamento.NOMBRE+"','"+
     newMedicamento.DESCRIPCION+"','"+
-    newMedicamento.LABORATORIO+"','2019-12-11','"+
+    newMedicamento.LABORATORIO+"','"+
     newMedicamento.MARCA+"',"+
     newMedicamento.ID_CATEGORIA+")", newMedicamento, function (err, res) {
             
@@ -91,7 +91,7 @@ Medicamento.updateById = function(id, dataMedicamento, result){
         sql.query("call USP_Medicamento(3,"+id+",'"+
     dataMedicamento.NOMBRE +"','"+
     dataMedicamento.DESCRIPCION +"','"+
-    dataMedicamento.LABORATORIO +"','2019-12-11','"+
+    dataMedicamento.LABORATORIO +"','"+
     dataMedicamento.MARCA +"',"+
     dataMedicamento.ID_CATEGORIA+")", dataMedicamento, function (err, res) {
             if(err) {

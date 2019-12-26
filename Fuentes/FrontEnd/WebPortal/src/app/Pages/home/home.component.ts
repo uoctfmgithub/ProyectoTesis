@@ -54,7 +54,7 @@ export class HomeComponent implements OnInit {
 
     this.homeService.getBuscarMedicamento().subscribe(res=>{
         this.dataBuscarProducto=res[0];
-      console.log(JSON.stringify(this.dataBuscarProducto))
+      // console.log(JSON.stringify(this.dataBuscarProducto))
       this.states = this.dataBuscarProducto;
     });
   }
@@ -78,7 +78,7 @@ export class HomeComponent implements OnInit {
       this.homeService.getBuscarMedicamentoTexto(this.name).subscribe(res=>{
         this.dataBuscarProductoR=res[0];
         this.dataMedicamentos = this.dataBuscarProductoR;
-        // console.log(JSON.stringify(this.fetchData))
+        console.log("DATA ENTER"+JSON.stringify(this.dataMedicamentos))
         this.name = ""
       });
     }
@@ -89,7 +89,7 @@ export class HomeComponent implements OnInit {
       this.homeService.getBuscarMedicamentoTexto(nombre).subscribe(res=>{
         this.dataBuscarProductoR=res[0];
         this.dataMedicamentos = this.dataBuscarProductoR;
-        // console.log(JSON.stringify(this.fetchData))
+        console.log("DATA SELECCIONADO"+JSON.stringify(this.dataMedicamentos))
         this.name = ""
       });
 

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {ServiceService} from '../ServiciosEnvioData/service.service';
 import {homeService} from '../../home/home.Service';
 import {ComparacionModelo} from './comparacionPrecios.modelo';
+import { Router } from '@angular/router';
+
 
 
 
@@ -32,7 +34,7 @@ export class ComparacionComponent implements OnInit {
 
 
   // _service: ServiceService nos pasara el json del componente 1 al componente 2
-  constructor (private _service: ServiceService,private homeService: homeService) {
+  constructor (private _service: ServiceService,private homeService: homeService,private router: Router) {
   }
 
       ngOnInit() {
@@ -47,7 +49,7 @@ export class ComparacionComponent implements OnInit {
         if (this.arrayDesdeService != undefined ) {
           this.mostrarComparacion();
         } else {
-          
+          this.router.navigateByUrl('/home');
         }
         
       }
@@ -95,8 +97,8 @@ export class ComparacionComponent implements OnInit {
         //   "sugerencia3":sugerencia3,
         // });
 
-        this.homeService.getSugerencias(this.arrayDesdeService[0].NOMBRE_CATEGORIA).subscribe(res=>{
-
+        this.homeService.getSugerencias(this.arrayDesdeService[0].ID_SUB_CATEGORIA).subscribe(res=>{
+          console.log('idsubcategoria :' + this.arrayDesdeService[0].ID_SUB_CATEGORIA)
           this.dataSugerencias=res[0];
 
             // this.dataComparacionPrecios=res[0];
