@@ -9,11 +9,11 @@ let MedicamentoController = {};
 MedicamentoController.getMedicamento = function(req, res){
   try {
     MedicamentoModel.getAll(function(err, task) {
-      console.log('controller')
+     // console.log('controller')
       if (err){
         res.send(err);
       }else{
-        console.log('res', task);
+    //    console.log('res', task);
         res.send(task);
       }
         
@@ -61,7 +61,7 @@ MedicamentoController.postRegistrarMedicamento = function(req, res){
 else{
   
   MedicamentoModel.create(nuevo_medicamento, function(err, task) {
-    console.log(nuevo_medicamento);
+  //  console.log(nuevo_medicamento);
     if (err)
       res.send(err);
     res.json(task);
@@ -87,7 +87,7 @@ MedicamentoController.updateMedicamento = function(req, res){
 
 MedicamentoController.getMedicamentoByTexto = function(req, res){
   try {
-    console.log('texto: '+req.params.texto)
+  //  console.log('texto: '+req.params.texto)
     if (req.params.texto=="null")
     {
       req.params.texto="";
@@ -105,7 +105,7 @@ MedicamentoController.getMedicamentoByTexto = function(req, res){
 
 MedicamentoController.getComparacionPrecioTexto = function(req, res){
   try {
-    console.log('texto: '+req.params.texto)
+ //   console.log('texto: '+req.params.texto)
     if (req.params.texto=="null")
     {
       req.params.texto="";
@@ -123,7 +123,7 @@ MedicamentoController.getComparacionPrecioTexto = function(req, res){
 
 MedicamentoController.getSugerenciasMedicamentos = function(req, res){
   try {
-    console.log('texto: '+req.params.texto)
+ //   console.log('texto: '+req.params.texto)
     if (req.params.texto=="null")
     {
       req.params.texto="";

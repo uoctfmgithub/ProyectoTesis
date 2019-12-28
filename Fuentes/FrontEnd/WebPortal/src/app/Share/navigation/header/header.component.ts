@@ -28,7 +28,7 @@ export class HeaderComponent {
 
   @Output() public sidenavToggle = new EventEmitter();
   
-  constructor(private homeService: homeService,private router: Router,private _service: ServiceService , private globals: Globals ) { }
+  constructor(private homeService: homeService,private router: Router,private _service: ServiceService , public globals: Globals ) { }
  ruta_imagen = '../../../assets/imagenes_producto/';
   keyword = 'NOMBRE';
   states = this.dataBuscarProducto;

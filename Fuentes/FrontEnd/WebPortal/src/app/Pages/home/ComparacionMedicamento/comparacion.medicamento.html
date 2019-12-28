@@ -1,4 +1,5 @@
-
+<div id="myDIV">
+    
 <section *ngFor="let dataProducto of arrayDesdeService">
  <article>
      <mat-card>
@@ -29,6 +30,9 @@
         <mat-card-content>
             {{dataProducto.NOMBRE_FARMACIA}}
         </mat-card-content>
+        <mat-card-subtitle style="font-size: 20px;">
+            Distancia: {{ geolocalizacion(dataProducto.LATITUD , dataProducto.LONGITUD)}} KM
+         </mat-card-subtitle>
         <mat-card-content>
             Direccion : {{dataProducto.DIRECCION}}
         </mat-card-content>
@@ -41,38 +45,38 @@
 
 <section >
     <article *ngFor="let dataComparacionPrecios of dataComparacionPrecios">
-        <mat-card style="height: 85%;">
+        <mat-card style="height: 90%;">
            <mat-card-header>
                <section>
                    <article >
                     <img mat-card-image src="{{ruta_imagen+dataComparacionPrecios.ARCHIVO_IMAGEN}}" style="height: 180px; width: 180px;">
                    </article>
                    <article>
-                    <!-- <mat-card-header> -->
-                    <mat-card-content>
-                        {{dataComparacionPrecios.NOMBRE_PRODUCTO}}
-                    </mat-card-content>
-                    <mat-card-subtitle style="font-size: 12px;">
-                        {{dataComparacionPrecios.DESCRIPCION}}
-                    </mat-card-subtitle>
-                    <mat-card-subtitle>Nombre Farmacia:
-                        <br>
-                        {{dataComparacionPrecios.NOMBRE_FARMACIA}}</mat-card-subtitle>
-                    <!-- </mat-card-header> -->
-                    Distancia:
-                    <mat-card-subtitle style="font-size: 20px;">
-                        1KM
-                     </mat-card-subtitle>
                     Precio:
                     <mat-card-content style="font-size: 30px;">
                         {{dataComparacionPrecios.PRECIO | currency : "€"}}
                     </mat-card-content>
-                    <mat-card-subtitle>
-                       Dirección: {{dataComparacionPrecios.DIRECCION}}
-                    </mat-card-subtitle>
                    </article>
                </section>
            </mat-card-header>
+           <article>
+            <!-- <mat-card-header> -->
+            <mat-card-content>
+             Nombre: {{dataComparacionPrecios.NOMBRE_PRODUCTO}}
+            </mat-card-content>
+            <mat-card-subtitle class="DescricionCard" style="font-size: 12px;">
+              Descripción: {{dataComparacionPrecios.DESCRIPCION}}
+            </mat-card-subtitle>
+            <mat-card-subtitle>
+                Nombre Farmacia: {{dataComparacionPrecios.NOMBRE_FARMACIA}}</mat-card-subtitle>        
+            <mat-card-subtitle style="font-size: 20px;">
+                Distancia: {{ geolocalizacion(dataComparacionPrecios.LATITUD , dataComparacionPrecios.LONGITUD)}} KM
+             </mat-card-subtitle>
+           
+            <mat-card-subtitle>
+               Dirección: {{dataComparacionPrecios.DIRECCION}}
+            </mat-card-subtitle>
+           </article>
         </mat-card>
    </article>
    </section>
@@ -80,11 +84,28 @@
    <h1 *ngIf="mostrar" style="font-size: 30px;">Sugerencias</h1>
 
    <div fxLayout.xs="column" fxLayout="row wrap" fxLayoutGap="10px" ngClass.gt-xs="ml-10">
-    <mat-card  *ngFor="let dataSugerencia of dataSugerencias" fxFlex.sm="0 1 calc(50%-10px)" fxFlex.md="0 1 calc(33%-10px)" fxFlex.gt-md="0 1 calc(25%-10px)">
-        <mat-card-title fxLayout.gt-xs="row" fxLayout.xs="column">{{dataSugerencia.NOMBRE}}</mat-card-title>
-        <br><br>
-        <mat-card-title style="text-align: center;">
-      <img mat-card-image src="{{ruta_imagen+dataSugerencia.ARCHIVO_IMAGEN}}" style="height: 40%; width: 20%;">
-    </mat-card-title>
-    </mat-card>
-    </div>
+        <mat-card *ngFor="let dataSugerencia of dataSugerencias; let i = index"  fxFlex.sm="0 1 calc(50%-10px)" fxFlex.md="0 1 calc(33%-10px)" fxFlex.gt-md="0 1 calc(25%-10px)">
+        <mat-card-header>
+          <mat-card-title fxLayout.gt-xs="row" fxLayout.xs="column">
+              {{dataSugerencia.NOMBRE}}
+        </mat-card-title>
+        <mat-card-title >
+            <p> </p>
+        </mat-card-title>
+        <mat-card-title >
+            <img mat-card-image src="{{ruta_imagen+dataSugerencia.ARCHIVO_IMAGEN}}" style="height: 90px; width: 90px;">
+        </mat-card-title>
+        </mat-card-header>
+
+            <mat-card-content>
+                <mat-card-actions>
+                    <button mat-raised-button color="primary" (click)="btnSelecionarSugerencia(i);">Seleccionar</button>
+                </mat-card-actions>
+            
+            </mat-card-content>
+
+        </mat-card>
+
+
+        </div>
+</div>

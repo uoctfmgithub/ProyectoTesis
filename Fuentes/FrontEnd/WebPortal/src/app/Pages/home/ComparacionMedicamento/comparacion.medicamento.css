@@ -57,3 +57,27 @@ mat-card {
 .ml-10 {
   margin-left: 10px;
 }
+mat-card-content{
+  font-family: Arial, Helvetica, sans-serif;
+}
+/* .scroll-to-top {
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+  opacity: 0;
+  transition: all .2s ease-in-out;
+}
+
+.show-scroll {
+  opacity: 1;
+} */
+/* #myDIV {
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+}
+#content {
+  height: 800px;
+  width: 2000px;
+
+} */

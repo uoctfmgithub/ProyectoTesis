@@ -3,18 +3,13 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from '../Pages/home/home.component';
 import {ComparacionComponent} from '../Pages/home/ComparacionMedicamento/comparacion.medicamento'
-import {LocalizacionComponent} from '../Pages/home/GeolocalizacionGoogle/localizacion.component';
 import {ServiceService} from '../Pages/home/ServiciosEnvioData/service.service'
 
 const routes: Routes = [
   
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent},
-  { path: 'comparacion', component: ComparacionComponent},
-  { path: 'localizacion', component: LocalizacionComponent},
-
- 
-
+  { path: 'comparacion', component: ComparacionComponent}
 ];
  
 @NgModule({
@@ -32,5 +27,4 @@ export class RoutingModule { }
 export const routingComponents=[
   HomeComponent,
   ComparacionComponent,
-  LocalizacionComponent,
 ]

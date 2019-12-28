@@ -18,7 +18,7 @@ import { AgmCoreModule } from '@agm/core';
 //componentes
 import { HomeComponent } from './Pages/home/home.component';
 import {ComparacionComponent} from './Pages/home/ComparacionMedicamento/comparacion.medicamento';
-import {LocalizacionComponent} from './Pages/home/GeolocalizacionGoogle/localizacion.component';
+
 
 import { HeaderComponent } from './Share/navigation/header/header.component';
 import { SidenavListComponent } from './Share/navigation/sidenav-list/sidenav-list.component';
@@ -32,7 +32,6 @@ import {Globals} from './Share/Global';
     AppComponent,
     HomeComponent,
     ComparacionComponent,
-    LocalizacionComponent,
     HeaderComponent,
     SidenavListComponent,
     LayoutComponent,

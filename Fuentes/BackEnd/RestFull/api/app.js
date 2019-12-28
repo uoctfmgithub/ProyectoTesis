@@ -20,8 +20,8 @@ app.use(morgan("dev"));
 
 //Settings
 const config=require('./config');
-// app.set('GeneraToken',config.ClaveToken)
-// Headers
+app.set('GeneraToken',config.ClaveToken)
+//Headers
 // app.use((req, res, next) => {
 //   res.header("Access-Control-Allow-Origin", "*");
 //   res.header(

@@ -43,7 +43,7 @@
   <div  class="cardList">
 
     <!-- Data se mostrar con el Enter siempre y cuando haya agregado algun texto -->
-    <ng-container *ngFor="let NOMBRE_PRODUCTO of dataMedicamentos">
+    <ng-container *ngFor="let NOMBRE_PRODUCTO of dataMedicamentos; let i = index">
 
       <mat-card class="cardListItem">           
       <mat-card-title style="text-align: center;">
@@ -59,7 +59,7 @@
         {{NOMBRE_PRODUCTO.PRECIO | currency : "€" }}
       </mat-card-content>
       <mat-card-actions>
-        <button mat-raised-button color="primary" (click)="btnClick();">Seleccionar</button>
+        <button mat-raised-button color="primary" (click)="btnClick(i);">Seleccionar</button>
       </mat-card-actions>
       </mat-card>
     </ng-container>

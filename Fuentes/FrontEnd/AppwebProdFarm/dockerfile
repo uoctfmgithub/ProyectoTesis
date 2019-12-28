@@ -1,5 +1,5 @@
 FROM nginx:alpine
 LABEL author="Hernan"
 COPY ./dist/ProdFarmWeb /usr/share/nginx/html
-EXPOSE 80 443
+EXPOSE 8081 443
 CMD ["nginx", "-g", "daemon off;"]

@@ -104,17 +104,27 @@ export class HomeComponent implements OnInit {
       });
   }
   
+
+  
+
+
+
   // VERDADERO
 //   btnClick= function () {
 //     this.sendArray(this.dataMedicamentos);
 //     this.router.navigateByUrl('/comparacion');
 // };
 
-  btnClick(){
-    // alert(JSON.stringify(DATA))
+  btnClick(i){
+    this.name=this.dataMedicamentos[i].NOMBRE_PRODUCTO
+    this.homeService.getBuscarMedicamentoTexto(this.name).subscribe(res=>{
+      this.dataBuscarProductoR=res[0];
+      this.dataMedicamentos = this.dataBuscarProductoR;
+      this.name = ""
       this.obtenerPrecioMinimo();
       this.sendArray(this.dataComparacionSeleccionado);
       this.router.navigateByUrl('/comparacion');
+    });
 }
   sendArray(datos) {
     this._service.setArray(datos);
