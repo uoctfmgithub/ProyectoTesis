@@ -14,31 +14,37 @@
   </mat-form-field>
   <mat-form-field style="margin-left: 3%;width: 40%;">
     <mat-label>Categoria</mat-label>
-                <mat-select  [(value)]="Medicamento.ID_CATEGORIA">
-                  <mat-option value="1">Bebe y Madre</mat-option>
-                  <mat-option value="2">Cosmética</mat-option>
-                  <mat-option value="3">Cuidado Personal</mat-option>
-                  <mat-option value="4">Dietetica y Productos naturales</mat-option>
-                  <mat-option value="5">Higiene</mat-option>
-                  <mat-option value="6">Optica</mat-option>
-                  <mat-option value="7">Ortopedia</mat-option>
-                  <mat-option value="8">Salud</mat-option>
-                </mat-select>
+    <mat-select [(value)]="SelectedListaCategoria" placeholder="Select value">
+      <mat-option *ngFor="let categoria of ListaCategoria" [value]="categoria">
+        {{categoria.NOMBRE_CATEGORIA}}
+      </mat-option>
+      <!-- <mat-option value="1">Bebe y Madre</mat-option>
+      <mat-option value="2">Cosmética</mat-option>
+      <mat-option value="3">Cuidado Personal</mat-option>
+      <mat-option value="4">Dietetica y Productos naturales</mat-option>
+      <mat-option value="5">Higiene</mat-option>
+      <mat-option value="6">Optica</mat-option>
+      <mat-option value="7">Ortopedia</mat-option>
+      <mat-option value="8">Salud</mat-option> -->
+    </mat-select>
   </mat-form-field>
   <mat-form-field style="margin-left: 3%;width: 40%;">
     <mat-label>Sub Categoria</mat-label>
-            <mat-select  [(value)]="Medicamento.ID_SUB_CATEGORIA">
-                  <mat-option value="1">Alimentacion Infantil</mat-option>
-                  <mat-option value="2">Higiene del bebe</mat-option>
-                  <mat-option value="3">Puericultura</mat-option>
-                  <mat-option value="4">Corporal</mat-option>
-                  <mat-option value="5">Maquillajes</mat-option>
-                  <mat-option value="6">Facial</mat-option>
-                  <mat-option value="7">Nariz y Labios</mat-option>
-                  <mat-option value="8">Fragancias</mat-option>
-                  <mat-option value="9">Proteccion Solar</mat-option>
-                  <mat-option value="10">Hombre</mat-option>
-            </mat-select>
+    <mat-select [(value)]="SelectedListaSubCategoria" placeholder="Select value">
+      <mat-option *ngFor="let subcategoria of ListaSubCategoria" [value]="subcategoria">
+        {{subcategoria.NOMBRE}}
+      </mat-option>
+      <!-- <mat-option value="1">Alimentacion Infantil</mat-option>
+      <mat-option value="2">Higiene del bebe</mat-option>
+      <mat-option value="3">Puericultura</mat-option>
+      <mat-option value="4">Corporal</mat-option>
+      <mat-option value="5">Maquillajes</mat-option>
+      <mat-option value="6">Facial</mat-option>
+      <mat-option value="7">Nariz y Labios</mat-option>
+      <mat-option value="8">Fragancias</mat-option>
+      <mat-option value="9">Proteccion Solar</mat-option>
+      <mat-option value="10">Hombre</mat-option> -->
+    </mat-select>
   </mat-form-field>
 </div>
 <div mat-dialog-actions>

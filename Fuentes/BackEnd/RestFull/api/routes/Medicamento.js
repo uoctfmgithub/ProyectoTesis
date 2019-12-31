@@ -5,9 +5,11 @@ const express = require('express');
 const MedicamentoController = require('../Controllers/Medicamento');
 // Llamamos al router
 const router = express.Router();
+
 // const checkAuth = require('../Middlewares/authenticated'); 
 // Creamos una ruta para los métodos que tenemos en nuestros controladores
 router.post('/',MedicamentoController.postRegistrarMedicamento)
+
 router.get('/',MedicamentoController.getMedicamento)
 router.get('/:id',MedicamentoController.getMedicamentoById)
 router.delete('/:id',MedicamentoController.deleteRegistrarMedicamento)
@@ -15,6 +17,11 @@ router.patch('/:id',MedicamentoController.updateMedicamento)
 router.get('/buscar/:texto',MedicamentoController.getMedicamentoByTexto)
 router.get('/comparar/:texto',MedicamentoController.getComparacionPrecioTexto)
 router.get('/sugerencias/:texto',MedicamentoController.getSugerenciasMedicamentos)
+
+
+
+
+
 
 // Exportamos la configuración
 module.exports = router;

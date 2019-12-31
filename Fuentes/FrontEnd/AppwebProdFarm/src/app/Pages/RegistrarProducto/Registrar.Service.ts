@@ -35,12 +35,13 @@ export class RegistrarService{
         return this.http.delete<any>(this.configUrl+"/"+id,httpOptions);
       }
       postMedicamento(medicamento: Medicamento){
+        // console.log("data" + JSON.stringify(medicamento))
         let body = JSON.stringify(medicamento);
         return this.http.post<any>(this.configUrl,body,httpOptions);
       }
-
+      
       updateMedicamento(id,medicamento: Medicamento){
         let body = JSON.stringify(medicamento);
         return this.http.patch<any>(this.configUrl+"/"+id,body,httpOptions);
       }
-    }
+  }

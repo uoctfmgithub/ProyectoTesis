@@ -17,11 +17,11 @@ const httpOptions = {
 @Injectable({
     providedIn: 'root'
 })
-export class RegistrarService{
+export class RegistrarCategoriaService{
     //configUrl='http://localhost:3000/farmacias';
     constructor(private http: HttpClient, private globals : Globals){ }
     configUrl=this.globals.urlService + 'categorias';
-
+    configUrl2=this.globals.urlService + 'subcategorias';
 
     getCategorias(){
         return this.http.get<any>(this.configUrl,httpOptions);
@@ -46,4 +46,9 @@ export class RegistrarService{
 
         return this.http.patch<any>(this.configUrl+"/"+id,body,httpOptions);
       }
+
+      getSubCategorias(){
+        return this.http.get<any>(this.configUrl2,httpOptions);
+      }
+
     }

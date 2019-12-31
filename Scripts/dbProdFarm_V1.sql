@@ -1,3 +1,5 @@
+create database dbProdFarm;
+
 use dbProdFarm;
 
 -------------------------CREACION-DE-TABLAS---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -103,23 +105,34 @@ end if;
 end$$
 DELIMITER ;
 
+-------------------------PROCEDIMIENTO-DE-SUB-CATEGORIA--------------------------------------------------------------
+
+DELIMITER $$
+create procedure USP_Sub_Categoria(in accion int,in id int,in NomSubCategoria varchar(200))
+begin
+if accion = 1 then
+select ID_SUB_CATEGORIA,NOMBRE from TB_SUB_CATEGORIA;
+end if;
+end$$
+DELIMITER ;
 
 
 -------------------------PROCEDIMIENTO-DE-MEDICAMENTO--------------------------------------------------------------
 
 DELIMITER $$
 create procedure USP_Medicamento(in accion int,in id int,in NomMedicamento varchar(200),in DesMedicamento varchar(500),in LabMedicamento varchar(200)
-                                                             , inMarcMedicamento varchar(200),in id_Cate int )
+                                                             , in MarcMedicamento varchar(200),in id_Cate int ,in id_subCategoria int ,in imagen varchar(100))
 begin
 if accion = 1 then
-select * from TB_MEDICAMENTO;
+select ID_MEDICAMENTO,NOMBRE,DESCRIPCION,LABORATORIO,FECHA_CREACION,FECHA_DE_MODIFICACION,MARCA,ID_CATEGORIA,ID_SUB_CATEGORIA,ARCHIVO_IMAGEN from TB_MEDICAMENTO;
 end if;
 if accion = 2 then
-INSERT INTO TB_MEDICAMENTO (ID_MEDICAMENTO,NOMBRE,DESCRIPCION,LABORATORIO,FECHA_CREACION,FECHA_DE_MODIFICACION,MARCA,ID_CATEGORIA)
-VALUES (default,NomMedicamento,DesMedicamento,LabMedicamento,now(),now(),MarcMedicamento,id_Cate);
+INSERT INTO TB_MEDICAMENTO (ID_MEDICAMENTO,NOMBRE,DESCRIPCION,LABORATORIO,FECHA_CREACION,FECHA_DE_MODIFICACION,MARCA,ID_CATEGORIA,ID_SUB_CATEGORIA,ARCHIVO_IMAGEN)
+VALUES (default,NomMedicamento,DesMedicamento,LabMedicamento,now(),now(),MarcMedicamento,id_Cate,id_subCategoria,imagen);
 end if;
 if accion = 3 then
-update TB_MEDICAMENTO set NOMBRE=NomMedicamento,DESCRIPCION=DesMedicamento,LABORATORIO=LabMedicamento,FECHA_DE_MODIFICACION=now() , MARCA=MarcMedicamento,ID_CATEGORIA=id_Cate
+update TB_MEDICAMENTO set NOMBRE=NomMedicamento,DESCRIPCION=DesMedicamento,LABORATORIO=LabMedicamento,FECHA_DE_MODIFICACION=now() , MARCA=MarcMedicamento,ID_CATEGORIA=id_Cate,
+ID_SUB_CATEGORIA=id_subCategoria
 where ID_MEDICAMENTO=id;
 end if;
 if accion = 4 then

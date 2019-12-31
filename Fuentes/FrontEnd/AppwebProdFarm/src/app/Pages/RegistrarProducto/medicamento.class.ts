@@ -6,4 +6,6 @@ export class medicamentoClase {
     public MARCA : string;
     public ID_CATEGORIA : number ;
     public ID_SUB_CATEGORIA : number;
+    public ARCHIVO_IMAGEN : String;
+    public FILE : String;
     }

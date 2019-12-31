@@ -72,8 +72,8 @@ export class ComparacionComponent implements OnInit {
 
 
 
-  ruta_imagen = '../../../assets/imagenes_producto/';
-
+  // ruta_imagen = '../../../assets/imagenes_producto/';
+  ruta_imagen = this.globals.urlService + 'imagenes/medicamentos/'
 
   // _service: ServiceService nos pasara el json del componente 1 al componente 2
   constructor (private _service: ServiceService,private homeService: homeService,private router: Router, private globals: Globals) {

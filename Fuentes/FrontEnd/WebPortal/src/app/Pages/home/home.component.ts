@@ -3,7 +3,6 @@ import {homeService} from './home.Service';
 import { Router } from '@angular/router';
 import {ServiceService} from './ServiciosEnvioData/service.service';
 import {ComparacionModelo} from '../home/ComparacionMedicamento/comparacionPrecios.modelo';
-// import {ComparacionComponent} from './ComparacionMedicamento/comparacion.medicamento';
 import {NgModule} from '@angular/core';
 import {Globals} from '../../Share/Global';
 
@@ -28,8 +27,7 @@ export class HomeComponent implements OnInit {
 
   public mostrar=false;
 
-  // public ocultar = false;
-
+  
   public dataComparacionSeleccionado: Array<ComparacionModelo> = [];
   
   
@@ -38,17 +36,14 @@ export class HomeComponent implements OnInit {
   
   name:string;
 
-  // @ViewChild('child2') childTwo:ComparacionComponent;
-
-  // @ViewChild(ComparacionComponent, {static: false}) Component
-
-
+ 
   
   constructor(private homeService: homeService,private router: Router,private _service: ServiceService, private globals: Globals ) {}
 
   
   
-  ruta_imagen = '../../../assets/imagenes_producto/';
+  // ruta_imagen = '../../../assets/imagenes_producto/';
+  ruta_imagen = this.globals.urlService + 'imagenes/medicamentos/'
   keyword = 'NOMBRE';
   states = this.dataBuscarProducto;
   dataMedicamentos = this.dataBuscarProductoR;
@@ -56,13 +51,10 @@ export class HomeComponent implements OnInit {
 
   dataByName(){
     
-    // if (this.data = null) {
-    //   this.data = 'null'
-    // } 
 
     this.homeService.getBuscarMedicamento().subscribe(res=>{
         this.dataBuscarProducto=res[0];
-      // console.log(JSON.stringify(this.dataBuscarProducto))
+      console.log(JSON.stringify(this.dataBuscarProducto))
       this.states = this.dataBuscarProducto;
     });
   }
@@ -88,32 +80,23 @@ export class HomeComponent implements OnInit {
       this.homeService.getBuscarMedicamentoTexto(this.name).subscribe(res=>{
         this.dataBuscarProductoR=res[0];
         this.dataMedicamentos = this.dataBuscarProductoR;
-        // console.log("DATA ENTER"+JSON.stringify(this.dataMedicamentos))
+
         this.name = ""
       });
     }
   }
 
   resultadoSeleccionado(nombre){
-    // console.log(nombre)
+
       this.homeService.getBuscarMedicamentoTexto(nombre).subscribe(res=>{
         this.dataBuscarProductoR=res[0];
         this.dataMedicamentos = this.dataBuscarProductoR;
-        // console.log("DATA SELECCIONADO"+JSON.stringify(this.dataMedicamentos))
+
         this.name = ""
       });
   }
   
 
-  
-
-
-
-  // VERDADERO
-//   btnClick= function () {
-//     this.sendArray(this.dataMedicamentos);
-//     this.router.navigateByUrl('/comparacion');
-// };
 
   btnClick(i){
     this.name=this.dataMedicamentos[i].NOMBRE_PRODUCTO

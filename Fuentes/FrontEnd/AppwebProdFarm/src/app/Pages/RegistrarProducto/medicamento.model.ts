@@ -6,4 +6,6 @@ export interface Medicamento {
     MARCA : string;
     ID_CATEGORIA : number ;
     ID_SUB_CATEGORIA : number;
+    ARCHIVO_IMAGEN : String;
+    FILE : String;
     }

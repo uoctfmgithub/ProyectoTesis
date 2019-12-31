@@ -8,11 +8,13 @@ const Medicamento = function(medicamento){
     this.MARCA = medicamento.MARCA
     this.ID_CATEGORIA = medicamento.ID_CATEGORIA
     this.ID_SUB_CATEGORIA = medicamento.ID_SUB_CATEGORIA
+    this.ARCHIVO_IMAGEN = medicamento.ARCHIVO_IMAGEN
+    this.FILE = medicamento.FILE
 };
 
 Medicamento.getAll = function (result) {
     try {
-        sql.query("call USP_Medicamento(1,null,'','','','',null,null)", function (err, res) {
+        sql.query("call USP_Medicamento(1,null,'','','','',null,null,'')", function (err, res) {
 
             if(err) {
                 console.log("error: ", err);
@@ -32,7 +34,7 @@ Medicamento.getAll = function (result) {
 Medicamento.getById = function (id, result) {
     try {
         console.log("Este es el id:"+id);
-    sql.query("call USP_Medicamento('5','"+ id +"','','','','',null,null)",id, function (err, res) {             
+    sql.query("call USP_Medicamento('5','"+ id +"','','','','',null,null,'')",id, function (err, res) {             
             if(err) {
                 console.log("error: ", err);
                 result(err, null);
@@ -48,7 +50,7 @@ Medicamento.getById = function (id, result) {
 
 Medicamento.deleteById = function(id, result){
     try {
-        sql.query("call USP_Medicamento('4','"+id+"','','','','',null,null)", [id], function (err, res) {
+        sql.query("call USP_Medicamento('4','"+id+"','','','','',null,null,'')", [id], function (err, res) {
 
             if(err) {
                 console.log("error: ", err);
@@ -71,7 +73,8 @@ Medicamento.create = function (newMedicamento, result) {
     newMedicamento.LABORATORIO+"','"+
     newMedicamento.MARCA+"',"+
     newMedicamento.ID_CATEGORIA+","+
-    newMedicamento.ID_SUB_CATEGORIA+")", newMedicamento, function (err, res) {
+    newMedicamento.ID_SUB_CATEGORIA+",'"+
+    newMedicamento.ARCHIVO_IMAGEN+"')", newMedicamento, function (err, res) {
             
             if(err) {
                 console.log("error: ", err);
@@ -95,7 +98,8 @@ Medicamento.updateById = function(id, dataMedicamento, result){
     dataMedicamento.LABORATORIO +"','"+
     dataMedicamento.MARCA +"',"+
     dataMedicamento.ID_CATEGORIA+","+
-    dataMedicamento.ID_SUB_CATEGORIA+")", dataMedicamento, function (err, res) {
+    dataMedicamento.ID_SUB_CATEGORIA+",'"+
+    dataMedicamento.ARCHIVO_IMAGEN+"')", dataMedicamento, function (err, res) {
             if(err) {
                 console.log("error: ", err);
                   result(null, err);

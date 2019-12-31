@@ -3,10 +3,12 @@ import {MatTableDataSource} from '@angular/material/table';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import Swal from 'sweetalert2';
 import {RegistrarService} from './Registrar.Service';
+import {RegistrarCategoriaService} from '../RegistrarCategoria/Registrar.Service';
 import {Medicamento} from './medicamento.model';
 import {medicamentoClase} from './medicamento.class';
-
-
+import { JsonPipe } from '@angular/common';
+// import { writeFile } from 'fs';
+// import { join } from 'path';
 let ELEMENT_DATA: Medicamento[] = [
 
 ];
@@ -21,7 +23,7 @@ let ELEMENT_DATA: Medicamento[] = [
 
 export class RegistrarComponent implements OnInit {
 
-  
+  private image:ImageSelected=null;
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -48,6 +50,7 @@ export class RegistrarComponent implements OnInit {
   ngOnInit() {
     this.refrescar();
   }
+
 
   refrescar(){
     this.DataComparar();
@@ -150,7 +153,7 @@ NuevoMedicamento(): void {
 })
 export class DialogoModificarMedicamento {
 
-  constructor(private RegistrarService: RegistrarService,
+  constructor(private RegistrarService: RegistrarService,private RegistrarCategoriaService: RegistrarCategoriaService,
     public dialogRef: MatDialogRef<DialogoModificarMedicamento>,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
@@ -163,7 +166,30 @@ export class DialogoModificarMedicamento {
     this.dialogRef.close();
   }
 
+  ngOnInit() {
+    this.ListarCategorias();
+    this.ListarSubCategorias();
+   }
 
+   public ListaCategoria:any[];
+   public ListaSubCategoria:any[];
+   public SelectedListaCategoria={ID_CATEGORIA:1,NOMBRE_CATEGORIA:''};
+   public SelectedListaSubCategoria= {ID_SUB_CATEGORIA:1,NOMBRE:''};
+ 
+    ListarCategorias(){
+       this.RegistrarCategoriaService.getCategorias().subscribe(res=>{
+         this.ListaCategoria=res;
+         this.ListaCategoria=this.ListaCategoria[0];
+       }); 
+   }
+ 
+   ListarSubCategorias(){
+     this.RegistrarCategoriaService.getSubCategorias().subscribe(res=>{
+       this.ListaSubCategoria=res;
+       this.ListaSubCategoria=this.ListaSubCategoria[0];
+      //  console.log("subcategoria"+ JSON.stringify(this.ListaSubCategoria));
+     }); 
+   }
   mensaje(){
     Swal.fire ('','Se Actualizo correctamente','success')
   }
@@ -185,14 +211,17 @@ export class DialogoModificarMedicamento {
         DESCRIPCION:Medicamento[0].DESCRIPCION,
         LABORATORIO:Medicamento[0].LABORATORIO,
         MARCA:Medicamento[0].MARCA,
-        ID_CATEGORIA:Medicamento[0].ID_CATEGORIA,
-        ID_SUB_CATEGORIA:Medicamento[0].ID_SUB_CATEGORIA
+        ID_CATEGORIA:this.SelectedListaCategoria.ID_CATEGORIA,
+        ID_SUB_CATEGORIA:this.SelectedListaSubCategoria.ID_SUB_CATEGORIA,
+        ARCHIVO_IMAGEN:Medicamento[0].ARCHIVO_IMAGEN,
+        FILE:''
     };
 
     if (!Medicamento[0].NOMBRE || !Medicamento[0].DESCRIPCION || !Medicamento[0].LABORATORIO || 
-      !Medicamento[0].MARCA || !Medicamento[0].ID_CATEGORIA || !Medicamento[0].ID_SUB_CATEGORIA) {
+      !Medicamento[0].MARCA || !this.SelectedListaCategoria.ID_CATEGORIA || !this.SelectedListaSubCategoria.ID_SUB_CATEGORIA) {
       this.mensajeRellenarData();
     } else {
+      console.log("actualizar " + JSON.stringify(medicamento));
       this.RegistrarService.updateMedicamento(ID_MEDICAMENTO,medicamento).subscribe(res=>{
         this.mensaje(); 
         this.onNoClick();
@@ -207,8 +236,8 @@ export class DialogoModificarMedicamento {
   templateUrl: 'DialogoAgregarMedicamento.html',
 })
 export class DialogoAgregarMedicamento {
- 
-  constructor(private RegistrarService: RegistrarService,
+  private image:ImageSelected=null;
+  constructor(private RegistrarService: RegistrarService,private RegistrarCategoriaService: RegistrarCategoriaService,
     public dialogRefAgregar: MatDialogRef<DialogoAgregarMedicamento>,
     @Inject(MAT_DIALOG_DATA) public data: any,private changeDetectorRefs: ChangeDetectorRef) { }
 
@@ -216,8 +245,40 @@ export class DialogoAgregarMedicamento {
   DESCRIPCION : string;
   LABORATORIO : string;
   MARCA :string;
-  ID_CATEGORIA: 1;
-  ID_SUB_CATEGORIA : 1;
+
+  ngOnInit() {
+   this.ListarCategorias();
+   this.ListarSubCategorias();
+  }
+
+  public ListaCategoria:any[];
+  public ListaSubCategoria:any[];
+  public SelectedListaCategoria={ID_CATEGORIA:1,NOMBRE_CATEGORIA:''};
+  public SelectedListaSubCategoria= {ID_SUB_CATEGORIA:1,NOMBRE:''};
+
+   ListarCategorias(){
+      this.RegistrarCategoriaService.getCategorias().subscribe(res=>{
+        this.ListaCategoria=res;
+        this.ListaCategoria=this.ListaCategoria[0];
+      }); 
+  }
+
+  ListarSubCategorias(){
+    this.RegistrarCategoriaService.getSubCategorias().subscribe(res=>{
+      this.ListaSubCategoria=res;
+      this.ListaSubCategoria=this.ListaSubCategoria[0];
+      // console.log("subcategoria"+ JSON.stringify(this.ListaSubCategoria));
+    }); 
+  }
+
+  onUploadFinish(event) {
+    // console.log(event);
+    this.image=new ImageSelected;
+    this.image.image=event.src;
+    this.image.name=event.file.name;
+    // console.log(JSON.stringify(this.image))
+    // console.log(JSON.stringify(this.image))
+   }
 
   CloseDialog(): void {
     this.dialogRefAgregar.close();
@@ -245,32 +306,42 @@ export class DialogoAgregarMedicamento {
         DESCRIPCION:this.DESCRIPCION,
         LABORATORIO:this.LABORATORIO,
         MARCA:this.MARCA,
-        ID_CATEGORIA:this.ID_CATEGORIA,
-        ID_SUB_CATEGORIA:this.ID_SUB_CATEGORIA
+        ID_CATEGORIA:this.SelectedListaCategoria.ID_CATEGORIA,
+        ID_SUB_CATEGORIA:this.SelectedListaSubCategoria.ID_SUB_CATEGORIA,      
+        ARCHIVO_IMAGEN:this.image.name,
+        FILE:this.image.image,
     };
 
     if (!this.NOMBRE || !this.DESCRIPCION || !this.LABORATORIO 
-      || !this.MARCA || !this.ID_CATEGORIA || !this.ID_SUB_CATEGORIA) {
+      || !this.MARCA || !this.SelectedListaCategoria.ID_CATEGORIA || !this.SelectedListaSubCategoria.ID_SUB_CATEGORIA) {
         this.mensajeRellenarData();
     } else{
       
       this.RegistrarService.postMedicamento(medicamento).subscribe(res=>{
+        // writeFile('../')
+
         let array=res;
          console.log("array : "+ JSON.stringify(array));
-        this.mensaje();
-        this.CloseDialog();
+         this.mensaje();
+         this.CloseDialog();
       });
+
+
 
     }
 
     } catch (error) {
       console.log(error);
     }
-    
+
   }
     
 }
 
+ class ImageSelected {
+  public name: String;
+  public image: String;
 
+}
 
 

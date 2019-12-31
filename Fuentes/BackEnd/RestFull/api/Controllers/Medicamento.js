@@ -1,11 +1,16 @@
 'use strict'
 var sql = require('../conexionDB');
+
 // Cargamos los modelos para usarlos posteriormente
 const MedicamentoModel = require('../Models/Medicamento');
+const fs = require('fs');
 //Declaramos el controller
 let MedicamentoController = {};
 
 //Metodos
+
+
+
 MedicamentoController.getMedicamento = function(req, res){
   try {
     MedicamentoModel.getAll(function(err, task) {
@@ -50,6 +55,7 @@ MedicamentoController.deleteRegistrarMedicamento = function(req, res){
 
 MedicamentoController.postRegistrarMedicamento = function(req, res){
   try {
+    console.log("id"+req.body.ID_SUB_CATEGORIA)
     var nuevo_medicamento = new MedicamentoModel(req.body);
 
   //handles null error 
@@ -61,9 +67,23 @@ MedicamentoController.postRegistrarMedicamento = function(req, res){
 else{
   
   MedicamentoModel.create(nuevo_medicamento, function(err, task) {
-  //  console.log(nuevo_medicamento);
-    if (err)
+  //  console.log("backend medicamento" + JSON.stringify(nuevo_medicamento));
+    if (err){
       res.send(err);
+    }else{}
+ 
+    
+    const file = nuevo_medicamento.FILE;
+    const name = nuevo_medicamento.ARCHIVO_IMAGEN;
+    // console.log("Esta es la data"+(file))
+  
+    const binaryData = new Buffer(file.replace(/^data:image\/jpeg;base64,/,""), 'base64').toString('binary');
+    fs.writeFile('./Api/public/imagenes/medicamentos/'+name, binaryData, "binary", (err) => {
+        console.log(err);
+    })
+
+
+
     res.json(task);
   });
 }

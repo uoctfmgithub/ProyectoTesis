@@ -3,7 +3,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 import Swal from 'sweetalert2';
-import {RegistrarService} from './Registrar.Service';
+import {RegistrarCategoriaService} from './Registrar.Service';
 import {Categoria} from './categoria.model';
 import {CategoriaClass} from './categoria.class';
 import {FormControl, Validators} from '@angular/forms';
@@ -28,7 +28,7 @@ export class RegistrarcategoriaComponent implements OnInit {
   }
 
 
-  constructor(public dialog: MatDialog,private RegistrarService: RegistrarService) {}
+  constructor(public dialog: MatDialog,private RegistrarService: RegistrarCategoriaService) {}
 
   NOMBRE_CATEGORIA : string;
 
@@ -134,7 +134,7 @@ NuevaCategoria(): void {
 })
 export class DialogoModificarCategoria {
 
-  constructor(private RegistrarService: RegistrarService,
+  constructor(private RegistrarService: RegistrarCategoriaService,
     public dialogRef: MatDialogRef<DialogoModificarCategoria>,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
@@ -186,7 +186,7 @@ export class DialogoModificarCategoria {
 })
 export class DialogoAgregarCategoria {
  
-  constructor(private RegistrarService: RegistrarService,
+  constructor(private RegistrarService: RegistrarCategoriaService,
     public dialogRefAgregar: MatDialogRef<DialogoAgregarCategoria>,
     @Inject(MAT_DIALOG_DATA) public data: any,private changeDetectorRefs: ChangeDetectorRef) { }
 
