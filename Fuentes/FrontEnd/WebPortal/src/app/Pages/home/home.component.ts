@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit {
 
   public mostrar=false;
 
-  
+ 
   public dataComparacionSeleccionado: Array<ComparacionModelo> = [];
   
   
@@ -37,7 +37,6 @@ export class HomeComponent implements OnInit {
   name:string;
 
  
-  
   constructor(private homeService: homeService,private router: Router,private _service: ServiceService, private globals: Globals ) {}
 
   
@@ -51,6 +50,7 @@ export class HomeComponent implements OnInit {
 
   dataByName(){
     
+
 
     this.homeService.getBuscarMedicamento().subscribe(res=>{
         this.dataBuscarProducto=res[0];
@@ -80,7 +80,7 @@ export class HomeComponent implements OnInit {
       this.homeService.getBuscarMedicamentoTexto(this.name).subscribe(res=>{
         this.dataBuscarProductoR=res[0];
         this.dataMedicamentos = this.dataBuscarProductoR;
-
+  
         this.name = ""
       });
     }
@@ -91,7 +91,7 @@ export class HomeComponent implements OnInit {
       this.homeService.getBuscarMedicamentoTexto(nombre).subscribe(res=>{
         this.dataBuscarProductoR=res[0];
         this.dataMedicamentos = this.dataBuscarProductoR;
-
+       
         this.name = ""
       });
   }

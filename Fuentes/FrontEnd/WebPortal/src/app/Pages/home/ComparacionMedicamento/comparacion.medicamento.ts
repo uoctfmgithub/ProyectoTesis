@@ -156,7 +156,7 @@ mostrarComparacion(){
         // return d.toFixed(3);//Retorna tres decimales
     }
 
-    btnSelecionarSugerencia(i){
+    btnSelecionarSugerencia(i,el: HTMLElement){
       
       this.name=this.dataSugerencias[i].NOMBRE
       this.homeService.getBuscarMedicamentoTexto(this.name).subscribe(res=>{
@@ -167,9 +167,8 @@ mostrarComparacion(){
         this.obtenerPrecioMinimo();
        this.sendArray(this.dataComparacionSeleccionado);
         this.CargarComparacion();
-        this.scrollToTop();
         });
-  
+        el.scrollIntoView();
       }
 
       sendArray(datos) {

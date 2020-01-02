@@ -1,4 +1,4 @@
-<div id="myDIV">
+<div #target>
     
 <section *ngFor="let dataProducto of arrayDesdeService">
  <article>
@@ -39,7 +39,7 @@
     </mat-card>
 </article>
 </section>
-
+</div>
     <h1 *ngIf="mostrar" style="font-size: 30px;">Todos los precios</h1>
 
 
@@ -99,7 +99,7 @@
 
             <mat-card-content>
                 <mat-card-actions>
-                    <button mat-raised-button color="primary" (click)="btnSelecionarSugerencia(i);">Seleccionar</button>
+                    <button mat-raised-button color="primary" (click)="btnSelecionarSugerencia(i,target);">Seleccionar</button>
                 </mat-card-actions>
             
             </mat-card-content>
@@ -108,4 +108,3 @@
 
 
         </div>
-</div>
